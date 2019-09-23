@@ -688,7 +688,7 @@ func TestLexer(t *testing.T) {
 					t.Fatalf("unexpected lexing error at position %d: %s", lastItem.pos, lastItem)
 				}
 
-				if !reflect.DeepEqual(lastItem, item{ItemEOF, Pos(len(test.input)), ""}) {
+				if !reflect.DeepEqual(lastItem, item{ItemEOF, Offset(len(test.input)), ""}) {
 					t.Logf("%d: input %q", i, test.input)
 					t.Fatalf("lexing error: expected output to end with EOF item.\ngot:\n%s", expectedList(out))
 				}
