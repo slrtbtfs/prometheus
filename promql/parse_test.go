@@ -14,6 +14,7 @@
 package promql
 
 import (
+	"go/token"
 	"math"
 	"reflect"
 	"strings"
@@ -27,6 +28,8 @@ import (
 	"github.com/prometheus/prometheus/util/testutil"
 )
 
+// TODO remove all the token.NoPos
+
 var testExpr = []struct {
 	input    string // The input to be parsed.
 	expected Expr   // The expected expression AST.
@@ -36,92 +39,92 @@ var testExpr = []struct {
 	// Scalars and scalar-to-scalar operations.
 	{
 		input:    "1",
-		expected: &NumberLiteral{1},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 1},
 	}, {
 		input:    "+Inf",
-		expected: &NumberLiteral{math.Inf(1)},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, math.Inf(1)},
 	}, {
 		input:    "-Inf",
-		expected: &NumberLiteral{math.Inf(-1)},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, math.Inf(-1)},
 	}, {
 		input:    ".5",
-		expected: &NumberLiteral{0.5},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 0.5},
 	}, {
 		input:    "5.",
-		expected: &NumberLiteral{5},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 5},
 	}, {
 		input:    "123.4567",
-		expected: &NumberLiteral{123.4567},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 123.4567},
 	}, {
 		input:    "5e-3",
-		expected: &NumberLiteral{0.005},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 0.005},
 	}, {
 		input:    "5e3",
-		expected: &NumberLiteral{5000},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 5000},
 	}, {
 		input:    "0xc",
-		expected: &NumberLiteral{12},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 12},
 	}, {
 		input:    "0755",
-		expected: &NumberLiteral{493},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 493},
 	}, {
 		input:    "+5.5e-3",
-		expected: &NumberLiteral{0.0055},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, 0.0055},
 	}, {
 		input:    "-0755",
-		expected: &NumberLiteral{-493},
+		expected: &NumberLiteral{token.NoPos, token.NoPos, -493},
 	}, {
 		input:    "1 + 1",
-		expected: &BinaryExpr{ItemADD, &NumberLiteral{1}, &NumberLiteral{1}, nil, false},
+		expected: &BinaryExpr{ItemADD, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, false},
 	}, {
 		input:    "1 - 1",
-		expected: &BinaryExpr{ItemSUB, &NumberLiteral{1}, &NumberLiteral{1}, nil, false},
+		expected: &BinaryExpr{ItemSUB, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, false},
 	}, {
 		input:    "1 * 1",
-		expected: &BinaryExpr{ItemMUL, &NumberLiteral{1}, &NumberLiteral{1}, nil, false},
+		expected: &BinaryExpr{ItemMUL, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, false},
 	}, {
 		input:    "1 % 1",
-		expected: &BinaryExpr{ItemMOD, &NumberLiteral{1}, &NumberLiteral{1}, nil, false},
+		expected: &BinaryExpr{ItemMOD, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, false},
 	}, {
 		input:    "1 / 1",
-		expected: &BinaryExpr{ItemDIV, &NumberLiteral{1}, &NumberLiteral{1}, nil, false},
+		expected: &BinaryExpr{ItemDIV, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, false},
 	}, {
 		input:    "1 == bool 1",
-		expected: &BinaryExpr{ItemEQL, &NumberLiteral{1}, &NumberLiteral{1}, nil, true},
+		expected: &BinaryExpr{ItemEQL, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, true},
 	}, {
 		input:    "1 != bool 1",
-		expected: &BinaryExpr{ItemNEQ, &NumberLiteral{1}, &NumberLiteral{1}, nil, true},
+		expected: &BinaryExpr{ItemNEQ, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, true},
 	}, {
 		input:    "1 > bool 1",
-		expected: &BinaryExpr{ItemGTR, &NumberLiteral{1}, &NumberLiteral{1}, nil, true},
+		expected: &BinaryExpr{ItemGTR, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, true},
 	}, {
 		input:    "1 >= bool 1",
-		expected: &BinaryExpr{ItemGTE, &NumberLiteral{1}, &NumberLiteral{1}, nil, true},
+		expected: &BinaryExpr{ItemGTE, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, true},
 	}, {
 		input:    "1 < bool 1",
-		expected: &BinaryExpr{ItemLSS, &NumberLiteral{1}, &NumberLiteral{1}, nil, true},
+		expected: &BinaryExpr{ItemLSS, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, true},
 	}, {
 		input:    "1 <= bool 1",
-		expected: &BinaryExpr{ItemLTE, &NumberLiteral{1}, &NumberLiteral{1}, nil, true},
+		expected: &BinaryExpr{ItemLTE, &NumberLiteral{token.NoPos, token.NoPos, 1}, &NumberLiteral{token.NoPos, token.NoPos, 1}, nil, true},
 	}, {
 		input: "+1 + -2 * 1",
 		expected: &BinaryExpr{
 			Op:  ItemADD,
-			LHS: &NumberLiteral{1},
+			LHS: &NumberLiteral{token.NoPos, token.NoPos, 1},
 			RHS: &BinaryExpr{
-				Op: ItemMUL, LHS: &NumberLiteral{-2}, RHS: &NumberLiteral{1},
+				Op: ItemMUL, LHS: &NumberLiteral{token.NoPos, token.NoPos, -2}, RHS: &NumberLiteral{token.NoPos, token.NoPos, 1},
 			},
 		},
 	}, {
 		input: "1 + 2/(3*1)",
 		expected: &BinaryExpr{
 			Op:  ItemADD,
-			LHS: &NumberLiteral{1},
+			LHS: &NumberLiteral{token.NoPos, token.NoPos, 1},
 			RHS: &BinaryExpr{
 				Op:  ItemDIV,
-				LHS: &NumberLiteral{2},
-				RHS: &ParenExpr{&BinaryExpr{
-					Op: ItemMUL, LHS: &NumberLiteral{3}, RHS: &NumberLiteral{1},
+				LHS: &NumberLiteral{token.NoPos, token.NoPos, 2},
+				RHS: &ParenExpr{token.NoPos, token.NoPos, &BinaryExpr{
+					Op: ItemMUL, LHS: &NumberLiteral{token.NoPos, token.NoPos, 3}, RHS: &NumberLiteral{token.NoPos, token.NoPos, 1},
 				}},
 			},
 		},
@@ -130,12 +133,12 @@ var testExpr = []struct {
 		expected: &BinaryExpr{
 			Op:         ItemLSS,
 			ReturnBool: true,
-			LHS:        &NumberLiteral{1},
+			LHS:        &NumberLiteral{token.NoPos, token.NoPos, 1},
 			RHS: &BinaryExpr{
 				Op:  ItemSUB,
-				LHS: &NumberLiteral{2},
+				LHS: &NumberLiteral{token.NoPos, token.NoPos, 2},
 				RHS: &BinaryExpr{
-					Op: ItemMUL, LHS: &NumberLiteral{1}, RHS: &NumberLiteral{2},
+					Op: ItemMUL, LHS: &NumberLiteral{token.NoPos, token.NoPos, 1}, RHS: &NumberLiteral{token.NoPos, token.NoPos, 2},
 				},
 			},
 		},
@@ -287,7 +290,7 @@ var testExpr = []struct {
 					mustLabelMatcher(labels.MatchEqual, string(model.MetricNameLabel), "foo"),
 				},
 			},
-			RHS: &NumberLiteral{1},
+			RHS: &NumberLiteral{token.NoPos, token.NoPos, 1},
 		},
 	}, {
 		input: "foo == bool 1",
@@ -299,14 +302,14 @@ var testExpr = []struct {
 					mustLabelMatcher(labels.MatchEqual, string(model.MetricNameLabel), "foo"),
 				},
 			},
-			RHS:        &NumberLiteral{1},
+			RHS:        &NumberLiteral{token.NoPos, token.NoPos, 1},
 			ReturnBool: true,
 		},
 	}, {
 		input: "2.5 / bar",
 		expected: &BinaryExpr{
 			Op:  ItemDIV,
-			LHS: &NumberLiteral{2.5},
+			LHS: &NumberLiteral{token.NoPos, token.NoPos, 2.5},
 			RHS: &VectorSelector{
 				Name: "bar",
 				LabelMatchers: []*labels.Matcher{
@@ -1162,7 +1165,7 @@ var testExpr = []struct {
 					mustLabelMatcher(labels.MatchEqual, string(model.MetricNameLabel), "some_metric"),
 				},
 			},
-			Param: &NumberLiteral{5},
+			Param: &NumberLiteral{token.NoPos, token.NoPos, 5},
 		},
 	}, {
 		input: "count_values(\"value\", some_metric)",
@@ -1174,7 +1177,7 @@ var testExpr = []struct {
 					mustLabelMatcher(labels.MatchEqual, string(model.MetricNameLabel), "some_metric"),
 				},
 			},
-			Param: &StringLiteral{"value"},
+			Param: &StringLiteral{token.NoPos, token.NoPos, "value"},
 		},
 	}, {
 		// Test usage of keywords as label names.
@@ -1249,7 +1252,7 @@ var testExpr = []struct {
 		input: `floor(some_metric{foo!="bar"})`,
 		expected: &Call{
 			Func: mustGetFunction("floor"),
-			Args: Expressions{
+			Args: []Expr{
 				&VectorSelector{
 					Name: "some_metric",
 					LabelMatchers: []*labels.Matcher{
@@ -1263,7 +1266,7 @@ var testExpr = []struct {
 		input: "rate(some_metric[5m])",
 		expected: &Call{
 			Func: mustGetFunction("rate"),
-			Args: Expressions{
+			Args: []Expr{
 				&MatrixSelector{
 					Name: "some_metric",
 					LabelMatchers: []*labels.Matcher{
@@ -1277,7 +1280,7 @@ var testExpr = []struct {
 		input: "round(some_metric)",
 		expected: &Call{
 			Func: mustGetFunction("round"),
-			Args: Expressions{
+			Args: []Expr{
 				&VectorSelector{
 					Name: "some_metric",
 					LabelMatchers: []*labels.Matcher{
@@ -1290,14 +1293,14 @@ var testExpr = []struct {
 		input: "round(some_metric, 5)",
 		expected: &Call{
 			Func: mustGetFunction("round"),
-			Args: Expressions{
+			Args: []Expr{
 				&VectorSelector{
 					Name: "some_metric",
 					LabelMatchers: []*labels.Matcher{
 						mustLabelMatcher(labels.MatchEqual, string(model.MetricNameLabel), "some_metric"),
 					},
 				},
-				&NumberLiteral{5},
+				&NumberLiteral{token.NoPos, token.NoPos, 5},
 			},
 		},
 	}, {
@@ -1416,11 +1419,11 @@ var testExpr = []struct {
 		input: `min_over_time(rate(foo{bar="baz"}[2s])[5m:5s])`,
 		expected: &Call{
 			Func: mustGetFunction("min_over_time"),
-			Args: Expressions{
+			Args: []Expr{
 				&SubqueryExpr{
 					Expr: &Call{
 						Func: mustGetFunction("rate"),
-						Args: Expressions{
+						Args: []Expr{
 							&MatrixSelector{
 								Name:  "foo",
 								Range: 2 * time.Second,
@@ -1441,11 +1444,11 @@ var testExpr = []struct {
 		expected: &SubqueryExpr{
 			Expr: &Call{
 				Func: mustGetFunction("min_over_time"),
-				Args: Expressions{
+				Args: []Expr{
 					&SubqueryExpr{
 						Expr: &Call{
 							Func: mustGetFunction("rate"),
-							Args: Expressions{
+							Args: []Expr{
 								&MatrixSelector{
 									Name:  "foo",
 									Range: 2 * time.Second,
@@ -1468,11 +1471,11 @@ var testExpr = []struct {
 		expected: &SubqueryExpr{
 			Expr: &Call{
 				Func: mustGetFunction("min_over_time"),
-				Args: Expressions{
+				Args: []Expr{
 					&SubqueryExpr{
 						Expr: &Call{
 							Func: mustGetFunction("rate"),
-							Args: Expressions{
+							Args: []Expr{
 								&MatrixSelector{
 									Name:  "foo",
 									Range: 2 * time.Second,
@@ -1524,7 +1527,8 @@ var testExpr = []struct {
 	}, {
 		input: `(foo + bar{nm="val"})[5m:]`,
 		expected: &SubqueryExpr{
-			Expr: &ParenExpr{
+			Expr: &ParenExpr{LParen: token.NoPos,
+				RParen: token.NoPos,
 				Expr: &BinaryExpr{
 					Op: ItemADD,
 					VectorMatching: &VectorMatching{
@@ -1550,7 +1554,8 @@ var testExpr = []struct {
 	}, {
 		input: `(foo + bar{nm="val"})[5m:] offset 10m`,
 		expected: &SubqueryExpr{
-			Expr: &ParenExpr{
+			Expr: &ParenExpr{LParen: token.NoPos,
+				RParen: token.NoPos,
 				Expr: &BinaryExpr{
 					Op: ItemADD,
 					VectorMatching: &VectorMatching{
