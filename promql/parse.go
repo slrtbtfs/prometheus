@@ -596,7 +596,7 @@ func (p *parser) primaryExpr() Expr {
 	case t.typ == ItemIdentifier:
 		// Check for function call.
 		if p.peek().typ == ItemLeftParen {
-			return p.call(t.val)
+			return p.call(t.val, p.lex.ItemPos(t))
 		}
 		fallthrough // Else metric selector.
 
@@ -712,7 +712,7 @@ func (p *parser) aggrExpr() *AggregateExpr {
 //
 //		<func_name> '(' [ <arg_expr>, ...] ')'
 //
-func (p *parser) call(name string) *Call {
+func (p *parser) call(name string, pos token.Pos) *Call {
 	const ctx = "function call"
 
 	fn, exist := getFunction(name)
@@ -720,13 +720,15 @@ func (p *parser) call(name string) *Call {
 		p.errorf("unknown function with name %q", name)
 	}
 
-	p.expect(ItemLeftParen, ctx)
+	lParen := p.expect(ItemLeftParen, ctx)
+
+	lParenPos := p.lex.ItemPos(lParen)
 
 	// Might be call without args.
 	if p.peek().typ == ItemRightParen {
-		p.next() // Consume.
-		// FIXME
-		return &Call{token.NoPos, token.NoPos, token.NoPos, fn, nil}
+		rParen := p.next() // Consume.
+		rParenPos := p.lex.ItemPos(rParen)
+		return &Call{pos, lParenPos, rParenPos, fn, nil}
 	}
 
 	var args []Expr
@@ -742,9 +744,10 @@ func (p *parser) call(name string) *Call {
 	}
 
 	// Call must be closed.
-	p.expect(ItemRightParen, ctx)
+	rParen := p.expect(ItemRightParen, ctx)
+	rParenPos := p.lex.ItemPos(rParen)
 
-	return &Call{Func: fn, Args: args}
+	return &Call{pos, lParenPos, rParenPos, fn, args}
 }
 
 // labelSet parses a set of label matchers
