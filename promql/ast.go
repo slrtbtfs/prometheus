@@ -44,6 +44,9 @@ type Node interface {
 	Pos() token.Pos
 	// position of first character immediately after the node
 	EndPos() token.Pos
+
+	// Get the direct Child nodes. Does not return nil childs
+	Childs() []Node
 }
 
 // Statement is a generic interface for all statements.
@@ -52,6 +55,13 @@ type Statement interface {
 
 	// stmt ensures that no other type accidentally implements the interface
 	stmt()
+}
+
+// Helper func
+func appendIfNotNil(list *[]Node, n Node) {
+	if n != nil {
+		*list = append(*list, n)
+	}
 }
 
 // EvalStmt holds an expression and information on the range it should
@@ -74,6 +84,12 @@ func (e *EvalStmt) Pos() token.Pos {
 
 func (e *EvalStmt) EndPos() token.Pos {
 	return e.endPos
+}
+
+func (e *EvalStmt) Childs() []Node {
+	ret := []Node{}
+	appendIfNotNil(&ret, e.Expr)
+	return ret
 }
 
 func (*EvalStmt) stmt() {}
@@ -110,6 +126,13 @@ func (e *AggregateExpr) EndPos() token.Pos {
 	return e.endPos
 }
 
+func (e *AggregateExpr) Childs() []Node {
+	ret := []Node{}
+	appendIfNotNil(&ret, e.Expr)
+	appendIfNotNil(&ret, e.Param)
+	return ret
+}
+
 // BinaryExpr represents a binary expression between two child expressions.
 type BinaryExpr struct {
 	Op       ItemType // The operation of the expression.
@@ -130,6 +153,13 @@ func (e *BinaryExpr) EndPos() token.Pos {
 	return e.RHS.EndPos()
 }
 
+func (e *BinaryExpr) Childs() []Node {
+	ret := []Node{}
+	appendIfNotNil(&ret, e.LHS)
+	appendIfNotNil(&ret, e.RHS)
+	return ret
+}
+
 // Call represents a function call.
 type Call struct {
 	pos    token.Pos
@@ -144,6 +174,14 @@ func (e *Call) Pos() token.Pos {
 }
 func (e *Call) EndPos() token.Pos {
 	return e.RParen + 1
+}
+
+func (e *Call) Childs() []Node {
+	ret := []Node{}
+	for _, arg := range e.Args {
+		appendIfNotNil(&ret, arg)
+	}
+	return ret
 }
 
 // MatrixSelector represents a Matrix selection.
@@ -169,6 +207,11 @@ func (e *MatrixSelector) EndPos() token.Pos {
 	return e.endPos
 }
 
+func (e *MatrixSelector) Childs() []Node {
+	ret := []Node{}
+	return ret
+}
+
 // SubqueryExpr represents a subquery.
 type SubqueryExpr struct {
 	Expr     Expr
@@ -187,6 +230,12 @@ func (e *SubqueryExpr) EndPos() token.Pos {
 	return e.endPos
 }
 
+func (e *SubqueryExpr) Childs() []Node {
+	ret := []Node{}
+	appendIfNotNil(&ret, e.Expr)
+	return ret
+}
+
 // NumberLiteral represents a number.
 type NumberLiteral struct {
 	pos    token.Pos
@@ -199,6 +248,11 @@ func (e *NumberLiteral) Pos() token.Pos {
 }
 func (e *NumberLiteral) EndPos() token.Pos {
 	return e.endPos
+}
+
+func (e *NumberLiteral) Childs() []Node {
+	ret := []Node{}
+	return ret
 }
 
 // ParenExpr wraps an expression so it cannot be disassembled as a consequence
@@ -217,6 +271,12 @@ func (e *ParenExpr) EndPos() token.Pos {
 	return e.RParen + 1
 }
 
+func (e *ParenExpr) Childs() []Node {
+	ret := []Node{}
+	appendIfNotNil(&ret, e.Expr)
+	return ret
+}
+
 // StringLiteral represents a string.
 type StringLiteral struct {
 	LQuote token.Pos
@@ -230,6 +290,11 @@ func (e *StringLiteral) Pos() token.Pos {
 
 func (e *StringLiteral) EndPos() token.Pos {
 	return e.RQuote + 1
+}
+
+func (e *StringLiteral) Childs() []Node {
+	ret := []Node{}
+	return ret
 }
 
 // UnaryExpr represents a unary operation on another expression.
@@ -246,6 +311,12 @@ func (e *UnaryExpr) Pos() token.Pos {
 
 func (e *UnaryExpr) EndPos() token.Pos {
 	return e.Expr.EndPos()
+}
+
+func (e *UnaryExpr) Childs() []Node {
+	ret := []Node{}
+	appendIfNotNil(&ret, e.Expr)
+	return ret
 }
 
 // VectorSelector represents a Vector selection.
@@ -268,6 +339,10 @@ func (e *VectorSelector) Pos() token.Pos {
 }
 func (e *VectorSelector) EndPos() token.Pos {
 	return e.endPos
+}
+func (e *VectorSelector) Childs() []Node {
+	ret := []Node{}
+	return ret
 }
 func (e *AggregateExpr) Type() ValueType  { return ValueTypeVector }
 func (e *Call) Type() ValueType           { return e.Func.ReturnType }
