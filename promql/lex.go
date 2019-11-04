@@ -319,6 +319,7 @@ type PosOffset int
 // lexer holds the state of the scanner.
 type lexer struct {
 	file       *token.File // source file
+	queryPos   token.Pos   // Start of the query inside the file
 	input      string      // The string being scanned.
 	state      stateFn     // The next lexing function to enter.
 	offset     PosOffset   // Current position in the input.
@@ -340,11 +341,11 @@ type lexer struct {
 
 // determines the postion of an Item
 func (l *lexer) ItemPos(i item) token.Pos {
-	return l.file.Pos(int(i.pos))
+	return token.Pos(int(i.pos) + int(l.queryPos))
 }
 
 func (l *lexer) ItemEndPos(i item) token.Pos {
-	return l.file.Pos(int(i.pos) + len(i.val))
+	return token.Pos(int(i.pos) + int(l.queryPos) + len(i.val))
 }
 
 // next returns the next rune in the input.
@@ -436,16 +437,17 @@ func lex(input string) *lexer {
 	fileSet := token.NewFileSet()
 	file := fileSet.AddFile("", -1, len(input))
 	file.SetLinesForContent([]byte(input))
-	return lexFile(input, file)
+	return lexFile(input, file, token.Pos(file.Base()))
 }
 
 // lex creates a new scanner for the input string.
 // It also takes a file Argument for position handling
-func lexFile(input string, file *token.File) *lexer {
+func lexFile(input string, file *token.File, start token.Pos) *lexer {
 	l := &lexer{
-		file:  file,
-		input: input,
-		items: make(chan item),
+		file:     file,
+		queryPos: start,
+		input:    input,
+		items:    make(chan item),
 	}
 	go l.run()
 	return l

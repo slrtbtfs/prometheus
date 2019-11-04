@@ -63,7 +63,19 @@ func ParseExpr(input string) (Expr, error) {
 
 // ParseExpr returns the expression parsed from the input.
 func ParseFile(input string, file *token.File) (Expr, error) {
-	p := newParserFromFile(input, file)
+	p := newParserFromFile(input, file, token.Pos(file.Base()))
+
+	expr, err := p.parseExpr()
+	if err != nil {
+		return nil, err
+	}
+	err = p.typecheck(expr)
+	return expr, err
+}
+
+// ParseExpr returns the expression parsed from the input.
+func ParsePartOfFile(input string, file *token.File, start token.Pos) (Expr, error) {
+	p := newParserFromFile(input, file, start)
 
 	expr, err := p.parseExpr()
 	if err != nil {
@@ -111,9 +123,9 @@ func newParser(input string) *parser {
 }
 
 // newParserFromFile returns a new parser.
-func newParserFromFile(input string, file *token.File) *parser {
+func newParserFromFile(input string, file *token.File, start token.Pos) *parser {
 	p := &parser{
-		lex: lexFile(input, file),
+		lex: lexFile(input, file, start),
 	}
 	return p
 }
