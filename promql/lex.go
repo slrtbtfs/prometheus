@@ -408,7 +408,7 @@ func (l *lexer) acceptRun(valid string) {
 // If you aren't working on the parser internals, you probably want
 // to use Position instead.
 func (l *lexer) Pos() token.Pos {
-	return l.file.Pos(int(l.lastOffset))
+	return l.queryPos + token.Pos(l.lastOffset)
 }
 
 // Position reports the position we're on, based on the position of
