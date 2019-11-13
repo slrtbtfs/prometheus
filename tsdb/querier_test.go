@@ -25,13 +25,13 @@ import (
 	"testing"
 
 	"github.com/pkg/errors"
-	"github.com/prometheus/prometheus/tsdb/chunkenc"
-	"github.com/prometheus/prometheus/tsdb/chunks"
-	"github.com/prometheus/prometheus/tsdb/index"
-	"github.com/prometheus/prometheus/tsdb/labels"
-	"github.com/prometheus/prometheus/tsdb/tombstones"
-	"github.com/prometheus/prometheus/tsdb/tsdbutil"
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/tsdb/chunkenc"
+	"github.com/slrtbtfs/prometheus/tsdb/chunks"
+	"github.com/slrtbtfs/prometheus/tsdb/index"
+	"github.com/slrtbtfs/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb/tombstones"
+	"github.com/slrtbtfs/prometheus/tsdb/tsdbutil"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 type mockSeriesSet struct {
@@ -1046,7 +1046,7 @@ func TestSeriesIterator(t *testing.T) {
 	})
 }
 
-// Regression for: https://github.com/prometheus/prometheus/tsdb/pull/97
+// Regression for: https://github.com/slrtbtfs/prometheus/tsdb/pull/97
 func TestChunkSeriesIterator_DoubleSeek(t *testing.T) {
 	chkMetas := []chunks.Meta{
 		tsdbutil.ChunkFromSamples([]tsdbutil.Sample{}),
@@ -1643,7 +1643,7 @@ func BenchmarkQuerySeek(b *testing.B) {
 	}
 }
 
-// Refer to https://github.com/prometheus/prometheus/issues/2651.
+// Refer to https://github.com/slrtbtfs/prometheus/issues/2651.
 func BenchmarkSetMatcher(b *testing.B) {
 	cases := []struct {
 		numBlocks                   int
@@ -1773,7 +1773,7 @@ func BenchmarkSetMatcher(b *testing.B) {
 	}
 }
 
-// Refer to https://github.com/prometheus/prometheus/issues/2651.
+// Refer to https://github.com/slrtbtfs/prometheus/issues/2651.
 func TestFindSetMatches(t *testing.T) {
 	cases := []struct {
 		pattern string
@@ -2013,7 +2013,7 @@ func TestPostingsForMatchers(t *testing.T) {
 			},
 		},
 		// Set optimization for Regex.
-		// Refer to https://github.com/prometheus/prometheus/issues/2651.
+		// Refer to https://github.com/slrtbtfs/prometheus/issues/2651.
 		{
 			matchers: []labels.Matcher{labels.NewMustRegexpMatcher("n", "^(?:1|2)$")},
 			exp: []labels.Labels{

@@ -29,10 +29,10 @@ import (
 	"github.com/pkg/errors"
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/promql"
-	"github.com/prometheus/prometheus/rules"
-	"github.com/prometheus/prometheus/storage"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/promql"
+	"github.com/slrtbtfs/prometheus/rules"
+	"github.com/slrtbtfs/prometheus/storage"
 )
 
 // RulesUnitTest does unit testing of rules based on the unit testing files provided.

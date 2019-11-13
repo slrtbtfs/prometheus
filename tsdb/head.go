@@ -28,14 +28,14 @@ import (
 	"github.com/oklog/ulid"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/prometheus/tsdb/chunkenc"
-	"github.com/prometheus/prometheus/tsdb/chunks"
-	"github.com/prometheus/prometheus/tsdb/encoding"
-	"github.com/prometheus/prometheus/tsdb/index"
-	"github.com/prometheus/prometheus/tsdb/labels"
-	"github.com/prometheus/prometheus/tsdb/record"
-	"github.com/prometheus/prometheus/tsdb/tombstones"
-	"github.com/prometheus/prometheus/tsdb/wal"
+	"github.com/slrtbtfs/prometheus/tsdb/chunkenc"
+	"github.com/slrtbtfs/prometheus/tsdb/chunks"
+	"github.com/slrtbtfs/prometheus/tsdb/encoding"
+	"github.com/slrtbtfs/prometheus/tsdb/index"
+	"github.com/slrtbtfs/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb/record"
+	"github.com/slrtbtfs/prometheus/tsdb/tombstones"
+	"github.com/slrtbtfs/prometheus/tsdb/wal"
 )
 
 var (

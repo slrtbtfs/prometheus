@@ -27,9 +27,9 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/samuel/go-zookeeper/zk"
 
-	"github.com/prometheus/prometheus/discovery/targetgroup"
-	"github.com/prometheus/prometheus/util/strutil"
-	"github.com/prometheus/prometheus/util/treecache"
+	"github.com/slrtbtfs/prometheus/discovery/targetgroup"
+	"github.com/slrtbtfs/prometheus/util/strutil"
+	"github.com/slrtbtfs/prometheus/util/treecache"
 )
 
 var (

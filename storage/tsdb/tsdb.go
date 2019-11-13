@@ -24,10 +24,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/model"
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/storage"
-	"github.com/prometheus/prometheus/tsdb"
-	tsdbLabels "github.com/prometheus/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/storage"
+	"github.com/slrtbtfs/prometheus/tsdb"
+	tsdbLabels "github.com/slrtbtfs/prometheus/tsdb/labels"
 )
 
 // ErrNotReady is returned if the underlying storage is not ready yet.

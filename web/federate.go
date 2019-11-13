@@ -25,11 +25,11 @@ import (
 	"github.com/prometheus/common/expfmt"
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/pkg/timestamp"
-	"github.com/prometheus/prometheus/pkg/value"
-	"github.com/prometheus/prometheus/promql"
-	"github.com/prometheus/prometheus/storage"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/pkg/timestamp"
+	"github.com/slrtbtfs/prometheus/pkg/value"
+	"github.com/slrtbtfs/prometheus/promql"
+	"github.com/slrtbtfs/prometheus/storage"
 )
 
 var (

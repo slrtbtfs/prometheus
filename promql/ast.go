@@ -17,8 +17,8 @@ import (
 	"go/token"
 	"time"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/storage"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/storage"
 )
 
 // Node is a generic interface for all nodes in an AST.

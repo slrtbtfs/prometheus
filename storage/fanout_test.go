@@ -18,8 +18,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 func TestMergeStringSlices(t *testing.T) {

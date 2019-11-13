@@ -1,4 +1,4 @@
-module github.com/prometheus/prometheus
+module github.com/slrtbtfs/prometheus
 
 go 1.13
 

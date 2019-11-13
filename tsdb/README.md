@@ -1,6 +1,6 @@
 # TSDB 
 
-[![GoDoc](https://godoc.org/github.com/prometheus/prometheus/tsdb?status.svg)](https://godoc.org/github.com/prometheus/prometheus/tsdb)
+[![GoDoc](https://godoc.org/github.com/slrtbtfs/prometheus/tsdb?status.svg)](https://godoc.org/github.com/slrtbtfs/prometheus/tsdb)
 
 This repository contains the Prometheus storage layer that is used in its 2.x releases.
 

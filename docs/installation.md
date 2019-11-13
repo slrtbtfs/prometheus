@@ -19,7 +19,7 @@ the respective repository.
 ## Using Docker
 
 All Prometheus services are available as Docker images on
-[Quay.io](https://quay.io/repository/prometheus/prometheus) or
+[Quay.io](https://quay.io/repository/slrtbtfs/prometheus) or
 [Docker Hub](https://hub.docker.com/r/prom/prometheus/).
 
 Running Prometheus on Docker is as simple as `docker run -p 9090:9090
@@ -39,7 +39,7 @@ two examples.
 Bind-mount your `prometheus.yml` from the host by running:
 
 ```bash
-docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml \
+docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/slrtbtfs/prometheus.yml \
        prom/prometheus
 ```
 

@@ -18,9 +18,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/prometheus/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
 
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 func TestLazyLoader_WithSamplesTill(t *testing.T) {
@@ -100,7 +100,7 @@ func TestLazyLoader_WithSamplesTill(t *testing.T) {
 						},
 					},
 				},
-				{ // This tests fix for https://github.com/prometheus/prometheus/issues/5064.
+				{ // This tests fix for https://github.com/slrtbtfs/prometheus/issues/5064.
 					ts:             time.Unix(300, 0),
 					checkOnlyError: true,
 				},

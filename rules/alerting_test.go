@@ -18,10 +18,10 @@ import (
 	"time"
 
 	"github.com/go-kit/kit/log"
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/pkg/timestamp"
-	"github.com/prometheus/prometheus/promql"
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/pkg/timestamp"
+	"github.com/slrtbtfs/prometheus/promql"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 func TestAlertingRuleHTMLSnippet(t *testing.T) {

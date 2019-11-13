@@ -30,14 +30,14 @@ import (
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 	prom_testutil "github.com/prometheus/client_golang/prometheus/testutil"
-	"github.com/prometheus/prometheus/tsdb/chunks"
-	"github.com/prometheus/prometheus/tsdb/index"
-	"github.com/prometheus/prometheus/tsdb/labels"
-	"github.com/prometheus/prometheus/tsdb/record"
-	"github.com/prometheus/prometheus/tsdb/tombstones"
-	"github.com/prometheus/prometheus/tsdb/tsdbutil"
-	"github.com/prometheus/prometheus/tsdb/wal"
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/tsdb/chunks"
+	"github.com/slrtbtfs/prometheus/tsdb/index"
+	"github.com/slrtbtfs/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb/record"
+	"github.com/slrtbtfs/prometheus/tsdb/tombstones"
+	"github.com/slrtbtfs/prometheus/tsdb/tsdbutil"
+	"github.com/slrtbtfs/prometheus/tsdb/wal"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 func openTestDB(t testing.TB, opts *Options) (db *DB, close func()) {
@@ -493,7 +493,7 @@ func TestDB_Snapshot(t *testing.T) {
 
 // TestDB_Snapshot_ChunksOutsideOfCompactedRange ensures that a snapshot removes chunks samples
 // that are outside the set block time range.
-// See https://github.com/prometheus/prometheus/issues/5105
+// See https://github.com/slrtbtfs/prometheus/issues/5105
 func TestDB_Snapshot_ChunksOutsideOfCompactedRange(t *testing.T) {
 	db, delete := openTestDB(t, nil)
 	defer delete()
@@ -1341,7 +1341,7 @@ func TestOverlappingBlocksDetectsAllOverlaps(t *testing.T) {
 	}, OverlappingBlocks(nc1))
 }
 
-// Regression test for https://github.com/prometheus/prometheus/tsdb/issues/347
+// Regression test for https://github.com/slrtbtfs/prometheus/tsdb/issues/347
 func TestChunkAtBlockBoundary(t *testing.T) {
 	db, delete := openTestDB(t, nil)
 	defer func() {

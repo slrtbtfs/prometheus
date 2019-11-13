@@ -32,10 +32,10 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/pkg/errors"
-	"github.com/prometheus/prometheus/tsdb"
-	"github.com/prometheus/prometheus/tsdb/chunks"
-	tsdb_errors "github.com/prometheus/prometheus/tsdb/errors"
-	"github.com/prometheus/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb"
+	"github.com/slrtbtfs/prometheus/tsdb/chunks"
+	tsdb_errors "github.com/slrtbtfs/prometheus/tsdb/errors"
+	"github.com/slrtbtfs/prometheus/tsdb/labels"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 

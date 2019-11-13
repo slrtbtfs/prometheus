@@ -16,7 +16,7 @@ package promql
 import (
 	"testing"
 
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 type testCase struct {
@@ -135,7 +135,7 @@ var tests = []struct {
 				expected: []item{{ItemString, 0, "`test\\.expression`"}},
 			},
 			{
-				// See https://github.com/prometheus/prometheus/issues/939.
+				// See https://github.com/slrtbtfs/prometheus/issues/939.
 				input: ".٩",
 				fail:  true,
 			},

@@ -26,9 +26,9 @@ import (
 	"strconv"
 
 	"github.com/pkg/errors"
-	"github.com/prometheus/prometheus/tsdb/chunkenc"
-	tsdb_errors "github.com/prometheus/prometheus/tsdb/errors"
-	"github.com/prometheus/prometheus/tsdb/fileutil"
+	"github.com/slrtbtfs/prometheus/tsdb/chunkenc"
+	tsdb_errors "github.com/slrtbtfs/prometheus/tsdb/errors"
+	"github.com/slrtbtfs/prometheus/tsdb/fileutil"
 )
 
 const (

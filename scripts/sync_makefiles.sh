@@ -9,8 +9,8 @@ git_mail="prometheus-team@googlegroups.com"
 git_user="prombot"
 branch="makefile_common"
 commit_msg="makefile: update Makefile.common with newer version"
-pr_title="Synchronize Makefile.common from prometheus/prometheus"
-pr_msg="Propagating changes from master Makefile.common located in prometheus/prometheus."
+pr_title="Synchronize Makefile.common from slrtbtfs/prometheus"
+pr_msg="Propagating changes from master Makefile.common located in slrtbtfs/prometheus."
 org="prometheus"
 
 GITHUB_TOKEN="${GITHUB_TOKEN:-}"
@@ -51,7 +51,7 @@ curl --retry 5 --silent -u "${git_user}:${GITHUB_TOKEN}" https://api.github.com/
 	cd "${tmp_dir}/${repo}"
 	git checkout -b "${branch}"
 
-	# Replace Makefile.common in target repo by one from prometheus/prometheus
+	# Replace Makefile.common in target repo by one from slrtbtfs/prometheus
 	cp -f "${source_makefile}" ./
 	if [ -n "$(git status --porcelain)" ]; then
 		git config user.email "${git_mail}"

@@ -26,9 +26,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/pkg/value"
-	"github.com/prometheus/prometheus/util/strutil"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/pkg/value"
+	"github.com/slrtbtfs/prometheus/util/strutil"
 )
 
 type parser struct {

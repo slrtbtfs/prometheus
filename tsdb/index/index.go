@@ -27,11 +27,11 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
-	"github.com/prometheus/prometheus/tsdb/chunks"
-	"github.com/prometheus/prometheus/tsdb/encoding"
-	tsdb_errors "github.com/prometheus/prometheus/tsdb/errors"
-	"github.com/prometheus/prometheus/tsdb/fileutil"
-	"github.com/prometheus/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb/chunks"
+	"github.com/slrtbtfs/prometheus/tsdb/encoding"
+	tsdb_errors "github.com/slrtbtfs/prometheus/tsdb/errors"
+	"github.com/slrtbtfs/prometheus/tsdb/fileutil"
+	"github.com/slrtbtfs/prometheus/tsdb/labels"
 )
 
 const (

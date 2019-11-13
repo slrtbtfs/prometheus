@@ -18,11 +18,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/pkg/timestamp"
-	"github.com/prometheus/prometheus/promql"
-	"github.com/prometheus/prometheus/util/teststorage"
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/pkg/timestamp"
+	"github.com/slrtbtfs/prometheus/promql"
+	"github.com/slrtbtfs/prometheus/util/teststorage"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 func TestRuleEval(t *testing.T) {

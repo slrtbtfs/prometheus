@@ -31,7 +31,7 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/common/version"
 
-	"github.com/prometheus/prometheus/prompb"
+	"github.com/slrtbtfs/prometheus/prompb"
 )
 
 const maxErrMsgLen = 256

@@ -18,7 +18,7 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/prometheus/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb/labels"
 )
 
 func BenchmarkMapClone(b *testing.B) {

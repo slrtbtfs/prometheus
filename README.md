@@ -1,10 +1,10 @@
 # Prometheus
 
-[![Build Status](https://travis-ci.org/prometheus/prometheus.svg)][travis]
-[![CircleCI](https://circleci.com/gh/prometheus/prometheus/tree/master.svg?style=shield)][circleci]
-[![Docker Repository on Quay](https://quay.io/repository/prometheus/prometheus/status)][quay]
+[![Build Status](https://travis-ci.org/slrtbtfs/prometheus.svg)][travis]
+[![CircleCI](https://circleci.com/gh/slrtbtfs/prometheus/tree/master.svg?style=shield)][circleci]
+[![Docker Repository on Quay](https://quay.io/repository/slrtbtfs/prometheus/status)][quay]
 [![Docker Pulls](https://img.shields.io/docker/pulls/prom/prometheus.svg?maxAge=604800)][hub]
-[![Go Report Card](https://goreportcard.com/badge/github.com/prometheus/prometheus)](https://goreportcard.com/report/github.com/prometheus/prometheus)
+[![Go Report Card](https://goreportcard.com/badge/github.com/slrtbtfs/prometheus)](https://goreportcard.com/report/github.com/slrtbtfs/prometheus)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/486/badge)](https://bestpractices.coreinfrastructure.org/projects/486)
 [![fuzzit](https://app.fuzzit.dev/badge?org_id=prometheus&branch=master)](https://fuzzit.dev)
 
@@ -29,7 +29,7 @@ Prometheus's main distinguishing features as compared to other monitoring system
 
 ## Architecture overview
 
-![](https://cdn.jsdelivr.net/gh/prometheus/prometheus@c34257d069c630685da35bcef084632ffd5d6209/documentation/images/architecture.svg)
+![](https://cdn.jsdelivr.net/gh/slrtbtfs/prometheus@c34257d069c630685da35bcef084632ffd5d6209/documentation/images/architecture.svg)
 
 ## Install
 
@@ -48,7 +48,7 @@ Debian packages [are available](https://packages.debian.org/sid/net/prometheus).
 
 ### Docker images
 
-Docker images are available on [Quay.io](https://quay.io/repository/prometheus/prometheus) or [Docker Hub](https://hub.docker.com/r/prom/prometheus/).
+Docker images are available on [Quay.io](https://quay.io/repository/slrtbtfs/prometheus) or [Docker Hub](https://hub.docker.com/r/prom/prometheus/).
 
 You can launch a Prometheus container for trying it out with
 
@@ -66,7 +66,7 @@ installed in order to build the frontend assets.
 You can directly use the `go` tool to download and install the `prometheus`
 and `promtool` binaries into your `GOPATH`:
 
-    $ go get github.com/prometheus/prometheus/cmd/...
+    $ go get github.com/slrtbtfs/prometheus/cmd/...
     $ prometheus --config.file=your_config.yml
 
 *However*, when using `go get` to build Prometheus, Prometheus will expect to be able to
@@ -80,7 +80,7 @@ the web assets so that Prometheus can be run from anywhere:
 
     $ mkdir -p $GOPATH/src/github.com/prometheus
     $ cd $GOPATH/src/github.com/prometheus
-    $ git clone https://github.com/prometheus/prometheus.git
+    $ git clone https://github.com/slrtbtfs/prometheus.git
     $ cd prometheus
     $ make build
     $ ./prometheus --config.file=your_config.yml
@@ -96,20 +96,20 @@ The Makefile provides several targets:
 
 ## More information
 
-  * The source code is periodically indexed: [Prometheus Core](https://godoc.org/github.com/prometheus/prometheus).
+  * The source code is periodically indexed: [Prometheus Core](https://godoc.org/github.com/slrtbtfs/prometheus).
   * You will find a Travis CI configuration in `.travis.yml`.
   * See the [Community page](https://prometheus.io/community) for how to reach the Prometheus developers and users on various communication channels.
 
 ## Contributing
 
-Refer to [CONTRIBUTING.md](https://github.com/prometheus/prometheus/blob/master/CONTRIBUTING.md)
+Refer to [CONTRIBUTING.md](https://github.com/slrtbtfs/prometheus/blob/master/CONTRIBUTING.md)
 
 ## License
 
-Apache License 2.0, see [LICENSE](https://github.com/prometheus/prometheus/blob/master/LICENSE).
+Apache License 2.0, see [LICENSE](https://github.com/slrtbtfs/prometheus/blob/master/LICENSE).
 
 
-[travis]: https://travis-ci.org/prometheus/prometheus
+[travis]: https://travis-ci.org/slrtbtfs/prometheus
 [hub]: https://hub.docker.com/r/prom/prometheus/
-[circleci]: https://circleci.com/gh/prometheus/prometheus
-[quay]: https://quay.io/repository/prometheus/prometheus
+[circleci]: https://circleci.com/gh/slrtbtfs/prometheus
+[quay]: https://quay.io/repository/slrtbtfs/prometheus

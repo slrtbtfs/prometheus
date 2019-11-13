@@ -28,8 +28,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/model"
 
-	"github.com/prometheus/prometheus/discovery/refresh"
-	"github.com/prometheus/prometheus/discovery/targetgroup"
+	"github.com/slrtbtfs/prometheus/discovery/refresh"
+	"github.com/slrtbtfs/prometheus/discovery/targetgroup"
 )
 
 const (

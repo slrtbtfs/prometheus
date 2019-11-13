@@ -19,9 +19,9 @@ import (
 	"sort"
 
 	"github.com/pkg/errors"
-	"github.com/prometheus/prometheus/tsdb/encoding"
-	"github.com/prometheus/prometheus/tsdb/labels"
-	"github.com/prometheus/prometheus/tsdb/tombstones"
+	"github.com/slrtbtfs/prometheus/tsdb/encoding"
+	"github.com/slrtbtfs/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb/tombstones"
 )
 
 // Type represents the data type of a record.

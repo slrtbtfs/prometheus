@@ -17,7 +17,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 type mockedFlusher struct {

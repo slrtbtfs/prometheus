@@ -19,9 +19,9 @@ import (
 	"time"
 
 	"github.com/prometheus/common/model"
-	"github.com/prometheus/prometheus/storage"
-	"github.com/prometheus/prometheus/storage/tsdb"
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/storage"
+	"github.com/slrtbtfs/prometheus/storage/tsdb"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 // New returns a new storage for testing purposes

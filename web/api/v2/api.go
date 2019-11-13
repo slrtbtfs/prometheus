@@ -26,14 +26,14 @@ import (
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/pkg/errors"
-	"github.com/prometheus/prometheus/tsdb"
-	tsdbLabels "github.com/prometheus/prometheus/tsdb/labels"
+	"github.com/slrtbtfs/prometheus/tsdb"
+	tsdbLabels "github.com/slrtbtfs/prometheus/tsdb/labels"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/prometheus/prometheus/pkg/timestamp"
-	pb "github.com/prometheus/prometheus/prompb"
+	"github.com/slrtbtfs/prometheus/pkg/timestamp"
+	pb "github.com/slrtbtfs/prometheus/prompb"
 )
 
 // API encapsulates all API services.

@@ -21,9 +21,9 @@ import (
 
 	"github.com/go-kit/kit/log"
 
-	"github.com/prometheus/prometheus/pkg/labels"
-	"github.com/prometheus/prometheus/storage"
-	"github.com/prometheus/prometheus/util/testutil"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/storage"
+	"github.com/slrtbtfs/prometheus/util/testutil"
 )
 
 func TestQueryConcurrency(t *testing.T) {

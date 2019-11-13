@@ -16,7 +16,7 @@ package storage
 import (
 	"math"
 
-	"github.com/prometheus/prometheus/pkg/labels"
+	"github.com/slrtbtfs/prometheus/pkg/labels"
 )
 
 type noopQuerier struct{}
