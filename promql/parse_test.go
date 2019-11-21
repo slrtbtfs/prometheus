@@ -2025,9 +2025,6 @@ func TestRecoverParserRuntime(t *testing.T) {
 
 	defer func() {
 		testutil.Equals(t, err, errUnexpected)
-
-		_, ok := <-p.lex.items
-		testutil.Assert(t, !ok, "lex.items was not closed")
 	}()
 	defer p.recover(&err)
 	// Cause a runtime panic.

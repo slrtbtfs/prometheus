@@ -1,0 +1,5 @@
+goos: linux
+goarch: amd64
+pkg: github.com/prometheus/prometheus/promql
+BenchmarkParser/a-8 	signal: interrupt
+FAIL	github.com/prometheus/prometheus/promql	0.671s

@@ -1,0 +1,24 @@
+goos: linux
+goarch: amd64
+pkg: github.com/slrtbtfs/prometheus/promql
+BenchmarkParser/a-8 	  655378	      2850 ns/op	     456 B/op	       9 allocs/op
+BenchmarkParser/metric-8         	  815646	      1519 ns/op	     456 B/op	       9 allocs/op
+BenchmarkParser/1-8              	  354025	      3210 ns/op	     824 B/op	      12 allocs/op
+BenchmarkParser/1_>=_bool_1-8    	  298111	      4256 ns/op	     824 B/op	      12 allocs/op
+BenchmarkParser/1_+_2/(3*1)-8    	  233142	      5193 ns/op	     824 B/op	      12 allocs/op
+BenchmarkParser/foo_or_bar-8     	  319932	      3887 ns/op	     904 B/op	      15 allocs/op
+BenchmarkParser/foo_and_bar_unless_baz_or_qux-8         	  220437	      5540 ns/op	     920 B/op	      15 allocs/op
+BenchmarkParser/bar_+_on(foo)_bla_/_on(baz,_buz)_group_right(test)_blub-8         	  126782	      8680 ns/op	     984 B/op	      16 allocs/op
+BenchmarkParser/foo_/_ignoring(test,blub)_group_left(blub)_bar-8                  	  175678	      6865 ns/op	     968 B/op	      16 allocs/op
+BenchmarkParser/foo_-_ignoring(test,blub)_group_right(bar,foo)_bar-8              	  150838	      7892 ns/op	     984 B/op	      16 allocs/op
+BenchmarkParser/foo{a="b",_foo!="bar",_test=~"test",_bar!~"baz"}-8                	  126705	      8570 ns/op	     984 B/op	      19 allocs/op
+BenchmarkParser/min_over_time(rate(foo{bar="baz"}[2s])[5m:])[4m:3s]-8             	  101043	     10063 ns/op	     984 B/op	      16 allocs/op
+BenchmarkParser/sum_without(and,_by,_avg,_count,_alert,_annotations)(some_metric)_[30m:10s]-8         	  124228	      8984 ns/op	     904 B/op	      13 allocs/op
+BenchmarkParser/(_(should_fail)-8                                                                     	  364504	      3228 ns/op	     856 B/op	      13 allocs/op
+BenchmarkParser/}_(should_fail)-8                                                                     	  276931	      4210 ns/op	     864 B/op	      14 allocs/op
+BenchmarkParser/1_or_1_(should_fail)-8                                                                	  319142	      3983 ns/op	     824 B/op	      12 allocs/op
+BenchmarkParser/1_or_on(bar)_foo_(should_fail)-8                                                      	  245631	      5083 ns/op	     824 B/op	      12 allocs/op
+BenchmarkParser/foo_unless_on(bar)_group_left(baz)_bar_(should_fail)-8                                	  192816	      6521 ns/op	     968 B/op	      16 allocs/op
+BenchmarkParser/test[5d]_OFFSET_10s_[10m:5s]_(should_fail)-8                                          	  182026	      7688 ns/op	     928 B/op	      16 allocs/op
+PASS
+ok  	github.com/slrtbtfs/prometheus/promql	27.886s

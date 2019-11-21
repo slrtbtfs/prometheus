@@ -325,7 +325,7 @@ type lexer struct {
 	itemOffset PosOffset   // Start position of this item.
 	width      PosOffset   // Width of last rune read from input.
 	lastOffset PosOffset   // Position of most recent item returned by nextItem.
-	items      chan item   // Channel of scanned items.
+	items      []item      // Slice buffer of scanned items.
 
 	parenDepth  int  // Nesting depth of ( ) exprs.
 	braceOpen   bool // Whether a { is opened.
@@ -373,7 +373,7 @@ func (l *lexer) backup() {
 
 // emit passes an item back to the client.
 func (l *lexer) emit(t ItemType) {
-	l.items <- item{t, l.itemOffset, l.input[l.itemOffset:l.offset]}
+	l.items = append(l.items, item{t, l.itemOffset, l.input[l.itemOffset:l.offset]})
 	l.itemOffset = l.offset
 }
 
@@ -420,13 +420,21 @@ func (l *lexer) Position() token.Position {
 // errorf returns an error token and terminates the scan by passing
 // back a nil pointer that will be the next state, terminating l.nextItem.
 func (l *lexer) errorf(format string, args ...interface{}) stateFn {
-	l.items <- item{ItemError, l.itemOffset, fmt.Sprintf(format, args...)}
+	l.items = append(l.items, item{ItemError, l.itemOffset, fmt.Sprintf(format, args...)})
 	return nil
 }
 
 // nextItem returns the next item from the input.
 func (l *lexer) nextItem() item {
-	item := <-l.items
+	for len(l.items) == 0 {
+		if l.state != nil {
+			l.state = l.state(l)
+		} else {
+			l.emit(ItemEOF)
+		}
+	}
+	item := l.items[0]
+	l.items = l.items[1:]
 	l.lastOffset = item.pos
 	return item
 }
@@ -445,9 +453,8 @@ func lexFile(input string, file *token.File) *lexer {
 	l := &lexer{
 		file:  file,
 		input: input,
-		items: make(chan item),
+		state: lexStatements,
 	}
-	go l.run()
 	return l
 }
 
@@ -456,7 +463,6 @@ func (l *lexer) run() {
 	for l.state = lexStatements; l.state != nil; {
 		l.state = l.state(l)
 	}
-	close(l.items)
 }
 
 // Release resources used by lexer.
