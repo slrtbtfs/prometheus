@@ -32,9 +32,10 @@ import (
 )
 
 type parser struct {
-	lex     *lexer
-	token   item
-	peeking bool
+	lex        *lexer
+	token      item
+	peeking    bool
+	lexedSpace bool
 }
 
 // ParseErr wraps a parsing error with line and position context.
@@ -147,9 +148,6 @@ func (p *parser) parseSeriesDesc() (m labels.Labels, vals []sequenceValue, err e
 
 	const ctx = "series values"
 	for {
-		for p.peek().typ == SPACE {
-			p.next()
-		}
 		if p.peek().typ == EOF {
 			break
 		}
@@ -170,10 +168,14 @@ func (p *parser) parseSeriesDesc() (m labels.Labels, vals []sequenceValue, err e
 			}
 			// This is to ensure that there is a space between this and the next number.
 			// This is especially required if the next number is negative.
-			if t := p.expectOneOf(SPACE, EOF, ctx).typ; t == EOF {
+			t := p.peek()
+			if p.lexedSpace {
+				continue
+			} else if t.typ == EOF {
 				break
+			} else {
+				p.errorf("unexpected %s in %s, expected %s or %s", t.desc(), ctx, SPACE.desc(), EOF.desc())
 			}
-			continue
 		}
 
 		// Extract values.
@@ -197,7 +199,7 @@ func (p *parser) parseSeriesDesc() (m labels.Labels, vals []sequenceValue, err e
 		})
 
 		// If there are no offset repetitions specified, proceed with the next value.
-		if t := p.peek(); t.typ == SPACE {
+		if t := p.peek(); p.lexedSpace {
 			// This ensures there is a space between every value.
 			continue
 		} else if t.typ == EOF {
@@ -228,8 +230,13 @@ func (p *parser) parseSeriesDesc() (m labels.Labels, vals []sequenceValue, err e
 		// This is to ensure that there is a space between this expanding notation
 		// and the next number. This is especially required if the next number
 		// is negative.
-		if t := p.expectOneOf(SPACE, EOF, ctx).typ; t == EOF {
+		t := p.peek()
+		if p.lexedSpace {
+			continue
+		} else if t.typ == EOF {
 			break
+		} else {
+			p.errorf("unexpected %s in %s, expected %s or %s", t.desc(), ctx, SPACE.desc(), EOF.desc())
 		}
 	}
 	return m, vals, nil
@@ -273,8 +280,12 @@ func (p *parser) peek() item {
 // token field of the parser struct
 func (p *parser) getTokenFromLexer() {
 	t := p.lex.nextItem()
+	p.lexedSpace = false
 	// Skip comments.
-	for t.typ == COMMENT {
+	for t.typ == COMMENT || t.typ == SPACE {
+		if t.typ == SPACE {
+			p.lexedSpace = true
+		}
 		t = p.lex.nextItem()
 	}
 	p.token = t
