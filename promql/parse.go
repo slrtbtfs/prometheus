@@ -246,12 +246,7 @@ func (p *parser) typecheck(node Node) (err error) {
 // next returns the next token.
 func (p *parser) next() item {
 	if !p.peeking {
-		t := p.lex.nextItem()
-		// Skip comments.
-		for t.typ == COMMENT {
-			t = p.lex.nextItem()
-		}
-		p.token = t
+		p.getTokenFromLexer()
 	}
 
 	p.peeking = false
@@ -267,15 +262,22 @@ func (p *parser) peek() item {
 	if p.peeking {
 		return p.token
 	}
+
+	p.getTokenFromLexer()
 	p.peeking = true
 
+	return p.token
+}
+
+// getTokenFromLexer gets a new token from the lexer and puts it in the
+// token field of the parser struct
+func (p *parser) getTokenFromLexer() {
 	t := p.lex.nextItem()
 	// Skip comments.
 	for t.typ == COMMENT {
 		t = p.lex.nextItem()
 	}
 	p.token = t
-	return p.token
 }
 
 // backup backs the input stream up one token.
