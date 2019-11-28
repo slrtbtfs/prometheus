@@ -7,20 +7,148 @@ import __yyfmt__ "fmt"
 
 //line promql/generated_parser.y:15
 
-//line promql/generated_parser.y:19
+//line promql/generated_parser.y:18
 type yySymType struct {
-	yys int
-	item
-	Node
+	yys  int
+	Node Node
+	item item
 }
 
-const START_LABELS = 57346
+const ERROR = 57346
+const EOF = 57347
+const COMMENT = 57348
+const IDENTIFIER = 57349
+const METRIC_IDENTIFIER = 57350
+const LEFT_PAREN = 57351
+const RIGHT_PAREN = 57352
+const LEFT_BRACE = 57353
+const RIGHT_BRACE = 57354
+const LEFT_BRACKET = 57355
+const RIGHT_BRACKET = 57356
+const COMMA = 57357
+const ASSIGN = 57358
+const COLON = 57359
+const SEMICOLON = 57360
+const STRING = 57361
+const NUMBER = 57362
+const DURATION = 57363
+const BLANK = 57364
+const TIMES = 57365
+const SPACE = 57366
+const operatorsStart = 57367
+const SUB = 57368
+const ADD = 57369
+const MUL = 57370
+const MOD = 57371
+const DIV = 57372
+const LAND = 57373
+const LOR = 57374
+const LUNLESS = 57375
+const EQL = 57376
+const NEQ = 57377
+const LTE = 57378
+const LSS = 57379
+const GTE = 57380
+const GTR = 57381
+const EQL_REGEX = 57382
+const NEQ_REGEX = 57383
+const POW = 57384
+const operatorsEnd = 57385
+const aggregatorsStart = 57386
+const AVG = 57387
+const COUNT = 57388
+const SUM = 57389
+const MIN = 57390
+const MAX = 57391
+const STDDEV = 57392
+const STDVAR = 57393
+const TOPK = 57394
+const BOTTOMK = 57395
+const COUNT_VALUES = 57396
+const QUANTILE = 57397
+const aggregatorsEnd = 57398
+const keywordsStart = 57399
+const OFFSET = 57400
+const BY = 57401
+const WITHOUT = 57402
+const ON = 57403
+const IGNORING = 57404
+const GROUP_LEFT = 57405
+const GROUP_RIGHT = 57406
+const BOOL = 57407
+const keywordsEnd = 57408
+const startSymbolsStart = 57409
+const startSymbolsEnd = 57410
 
 var yyToknames = [...]string{
 	"$end",
 	"error",
 	"$unk",
-	"START_LABELS",
+	"ERROR",
+	"EOF",
+	"COMMENT",
+	"IDENTIFIER",
+	"METRIC_IDENTIFIER",
+	"LEFT_PAREN",
+	"RIGHT_PAREN",
+	"LEFT_BRACE",
+	"RIGHT_BRACE",
+	"LEFT_BRACKET",
+	"RIGHT_BRACKET",
+	"COMMA",
+	"ASSIGN",
+	"COLON",
+	"SEMICOLON",
+	"STRING",
+	"NUMBER",
+	"DURATION",
+	"BLANK",
+	"TIMES",
+	"SPACE",
+	"operatorsStart",
+	"SUB",
+	"ADD",
+	"MUL",
+	"MOD",
+	"DIV",
+	"LAND",
+	"LOR",
+	"LUNLESS",
+	"EQL",
+	"NEQ",
+	"LTE",
+	"LSS",
+	"GTE",
+	"GTR",
+	"EQL_REGEX",
+	"NEQ_REGEX",
+	"POW",
+	"operatorsEnd",
+	"aggregatorsStart",
+	"AVG",
+	"COUNT",
+	"SUM",
+	"MIN",
+	"MAX",
+	"STDDEV",
+	"STDVAR",
+	"TOPK",
+	"BOTTOMK",
+	"COUNT_VALUES",
+	"QUANTILE",
+	"aggregatorsEnd",
+	"keywordsStart",
+	"OFFSET",
+	"BY",
+	"WITHOUT",
+	"ON",
+	"IGNORING",
+	"GROUP_LEFT",
+	"GROUP_RIGHT",
+	"BOOL",
+	"keywordsEnd",
+	"startSymbolsStart",
+	"startSymbolsEnd",
 }
 var yyStatenames = [...]string{}
 
@@ -28,7 +156,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line promql/generated_parser.y:32
+//line promql/generated_parser.y:104
 
 //line yacctab:1
 var yyExca = [...]int{
@@ -47,7 +175,7 @@ var yyAct = [...]int{
 }
 var yyPact = [...]int{
 
-	-4, -1000, -1000,
+	-24, -1000, -1000,
 }
 var yyPgo = [...]int{
 
@@ -63,7 +191,7 @@ var yyR2 = [...]int{
 }
 var yyChk = [...]int{
 
-	-1000, -1, 4,
+	-1000, -1, 24,
 }
 var yyDef = [...]int{
 
@@ -75,7 +203,13 @@ var yyTok1 = [...]int{
 }
 var yyTok2 = [...]int{
 
-	2, 3, 4,
+	2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+	12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+	22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+	32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+	42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
+	52, 53, 54, 55, 56, 57, 58, 59, 60, 61,
+	62, 63, 64, 65, 66, 67, 68,
 }
 var yyTok3 = [...]int{
 	0,

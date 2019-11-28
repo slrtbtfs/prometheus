@@ -13,20 +13,92 @@
 
 %{
     package promql
-
 %}
 
 %union {
-    item
-    Node
+    Node Node
+    item item
 }
 
-%token START_LABELS
+%token	ERROR 
+%token	EOF
+%token	COMMENT
+%token	IDENTIFIER
+%token	METRIC_IDENTIFIER
+%token	LEFT_PAREN
+%token	RIGHT_PAREN
+%token	LEFT_BRACE
+%token	RIGHT_BRACE
+%token	LEFT_BRACKET
+%token	RIGHT_BRACKET
+%token	COMMA
+%token	ASSIGN
+%token	COLON
+%token	SEMICOLON
+%token	STRING
+%token	NUMBER
+%token	DURATION
+%token	BLANK
+%token	TIMES
+%token	SPACE
+
+%token	operatorsStart
+// Operators.
+%token	SUB
+%token	ADD
+%token	MUL
+%token	MOD
+%token	DIV
+%token	LAND
+%token	LOR
+%token	LUNLESS
+%token	EQL
+%token	NEQ
+%token	LTE
+%token	LSS
+%token	GTE
+%token	GTR
+%token	EQL_REGEX
+%token	NEQ_REGEX
+%token	POW
+%token	operatorsEnd
+
+%token	aggregatorsStart
+// Aggregators.
+%token	AVG
+%token	COUNT
+%token	SUM
+%token	MIN
+%token	MAX
+%token	STDDEV
+%token	STDVAR
+%token	TOPK
+%token	BOTTOMK
+%token	COUNT_VALUES
+%token	QUANTILE
+%token	aggregatorsEnd
+%token
+%token	keywordsStart
+// Keywords.
+%token	OFFSET
+%token	BY
+%token	WITHOUT
+%token	ON
+%token	IGNORING
+%token	GROUP_LEFT
+%token	GROUP_RIGHT
+%token	BOOL
+%token	keywordsEnd
+
+
+%token	startSymbolsStart
+	// Start symbols for the generated parser.
+%token	startSymbolsEnd
 
 %start start;
 
 %%
 
-start:  START_LABELS
+start:  SPACE
 
 %%
