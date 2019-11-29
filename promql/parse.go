@@ -38,6 +38,8 @@ type parser struct {
 
 	inject    item
 	injecting bool
+
+	generatedParserResult Node
 }
 
 // ParseErr wraps a parsing error with line and position context.
@@ -1122,4 +1124,21 @@ func parseDuration(ds string) (time.Duration, error) {
 		return 0, errors.New("duration must be greater than 0")
 	}
 	return time.Duration(dur), nil
+}
+
+func (p *parser) parseGenerated(startSymbol ItemType) Node {
+	p.InjectItem(startSymbol)
+
+	yyParser := yyNewParser()
+
+	yyParser.Parse(p)
+
+	fmt.Println("Lookahead: ", yyParser.Lookahead())
+
+	if yyParser.Lookahead() != -1 {
+		p.backup()
+	}
+
+	return p.generatedParserResult
+
 }
