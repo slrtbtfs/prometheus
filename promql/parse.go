@@ -1142,3 +1142,30 @@ func (p *parser) parseGenerated(startSymbol ItemType) Node {
 	return p.generatedParserResult
 
 }
+
+func (p *parser) newLabelMatcher(label item, operator item, value item) *labels.Matcher {
+	op := operator.typ
+	val := p.unquoteString(value.val)
+
+	// Map the item to the respective match type.
+	var matchType labels.MatchType
+	switch op {
+	case EQL:
+		matchType = labels.MatchEqual
+	case NEQ:
+		matchType = labels.MatchNotEqual
+	case EQL_REGEX:
+		matchType = labels.MatchRegexp
+	case NEQ_REGEX:
+		matchType = labels.MatchNotRegexp
+	default:
+		p.errorf("item %q is not a metric match type", op)
+	}
+
+	m, err := labels.NewMatcher(matchType, label.val, val)
+	if err != nil {
+		p.error(err)
+	}
+
+	return m
+}

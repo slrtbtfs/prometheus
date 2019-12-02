@@ -13,92 +13,133 @@
 
 %{
     package promql
+
+    import (
+        "github.com/prometheus/prometheus/pkg/labels"
+    )
 %}
 
 %union {
-    Node Node
+    node Node
     item item
+    matchers []*labels.Matcher
+    matcher  *labels.Matcher
 }
 
-%token	ERROR 
-%token	EOF
-%token	COMMENT
-%token	IDENTIFIER
-%token	METRIC_IDENTIFIER
-%token	LEFT_PAREN
-%token	RIGHT_PAREN
-%token	LEFT_BRACE
-%token	RIGHT_BRACE
-%token	LEFT_BRACKET
-%token	RIGHT_BRACKET
-%token	COMMA
-%token	ASSIGN
-%token	COLON
-%token	SEMICOLON
-%token	STRING
-%token	NUMBER
-%token	DURATION
-%token	BLANK
-%token	TIMES
-%token	SPACE
+%token <item> ERROR 
+%token <item> EOF
+%token <item> COMMENT
+%token <item> IDENTIFIER
+%token <item> METRIC_IDENTIFIER
+%token <item> LEFT_PAREN
+%token <item> RIGHT_PAREN
+%token <item> LEFT_BRACE
+%token <item> RIGHT_BRACE
+%token <item> LEFT_BRACKET
+%token <item> RIGHT_BRACKET
+%token <item> COMMA
+%token <item> ASSIGN
+%token <item> COLON
+%token <item> SEMICOLON
+%token <item> STRING
+%token <item> NUMBER
+%token <item> DURATION
+%token <item> BLANK
+%token <item> TIMES
+%token <item> SPACE
 
 %token	operatorsStart
-// Operators.
-%token	SUB
-%token	ADD
-%token	MUL
-%token	MOD
-%token	DIV
-%token	LAND
-%token	LOR
-%token	LUNLESS
-%token	EQL
-%token	NEQ
-%token	LTE
-%token	LSS
-%token	GTE
-%token	GTR
-%token	EQL_REGEX
-%token	NEQ_REGEX
-%token	POW
+/* Operators.*/
+%token <item> SUB
+%token <item> ADD
+%token <item> MUL
+%token <item> MOD
+%token <item> DIV
+%token <item> LAND
+%token <item> LOR
+%token <item> LUNLESS
+%token <item> EQL
+%token <item> NEQ
+%token <item> LTE
+%token <item> LSS
+%token <item> GTE
+%token <item> GTR
+%token <item> EQL_REGEX
+%token <item> NEQ_REGEX
+%token <item> POW
 %token	operatorsEnd
 
 %token	aggregatorsStart
-// Aggregators.
-%token	AVG
-%token	COUNT
-%token	SUM
-%token	MIN
-%token	MAX
-%token	STDDEV
-%token	STDVAR
-%token	TOPK
-%token	BOTTOMK
-%token	COUNT_VALUES
-%token	QUANTILE
+/* Aggregators.*/
+%token <item> AVG
+%token <item> COUNT
+%token <item> SUM
+%token <item> MIN
+%token <item> MAX
+%token <item> STDDEV
+%token <item> STDVAR
+%token <item> TOPK
+%token <item> BOTTOMK
+%token <item> COUNT_VALUES
+%token <item> QUANTILE
 %token	aggregatorsEnd
-%token
+
 %token	keywordsStart
-// Keywords.
-%token	OFFSET
-%token	BY
-%token	WITHOUT
-%token	ON
-%token	IGNORING
-%token	GROUP_LEFT
-%token	GROUP_RIGHT
-%token	BOOL
-%token	keywordsEnd
+/* Keywords. */
+%token <item> OFFSET
+%token <item> BY
+%token <item> WITHOUT
+%token <item> ON
+%token <item> IGNORING
+%token <item> GROUP_LEFT
+%token <item> GROUP_RIGHT
+%token <item> BOOL
+
+%token keywordsEnd
 
 
 %token	startSymbolsStart
-	// Start symbols for the generated parser.
+/* Start symbols for the generated parser.*/
+%token START_LABELS
 %token	startSymbolsEnd
 
-%start start;
+%type <matchers> label_matchers label_match_list
+%type <matcher> label_matcher
+
+%type <item> match_op
+
+%start start
 
 %%
 
-start:  SPACE
+start           : START_LABELS label_matchers QUANTILE
+                     { yylex.(*parser).generatedParserResult = $3}
+                ;
 
+
+label_match_list:
+                label_match_list COMMA label_matcher
+                        { $$ = append($1, $3)}
+                | label_matcher
+                        { $$ = []*labels.Matcher{$1}}
+                ;
+
+label_matchers  : 
+                LEFT_BRACE label_match_list RIGHT_BRACE
+                        { $$ = $2 }
+                | LEFT_BRACE RIGHT_BRACE
+                        { $$ = []*labels.Matcher{} }
+                ;
+
+label_matcher   :
+                IDENTIFIER match_op STRING
+                        { $$ = yylex.(*parser).newLabelMatcher($1, $2, $3) }
+                ;
+
+match_op        :
+                EQL {$$ =$1}
+                | NEQ {$$=$1}
+                | EQL_REGEX {$$=$1}
+                | NEQ_REGEX {$$=$1}
+                ;
 %%
