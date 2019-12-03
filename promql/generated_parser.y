@@ -135,6 +135,8 @@ label_matchers  :
 label_matcher   :
                 IDENTIFIER match_op STRING
                         { $$ = yylex.(*parser).newLabelMatcher($1, $2, $3) }
+                IDENTIFIER match_op error
+                        { yylex.(*parser).errorf("unexpected %v in label matching, expected string", $3)}
                 ;
 
 match_op        :

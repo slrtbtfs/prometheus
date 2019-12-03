@@ -164,7 +164,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line promql/generated_parser.y:146
+//line promql/generated_parser.y:148
 
 //line yacctab:1
 var yyExca = [...]int{
@@ -179,9 +179,9 @@ const yyLast = 67
 
 var yyAct = [...]int{
 
-	3, 14, 15, 19, 9, 4, 12, 16, 17, 11,
-	10, 6, 10, 1, 13, 8, 18, 7, 5, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	3, 14, 15, 13, 19, 9, 12, 16, 17, 11,
+	10, 6, 21, 10, 23, 8, 20, 18, 4, 1,
+	7, 5, 0, 0, 0, 22, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -190,31 +190,34 @@ var yyAct = [...]int{
 var yyPact = [...]int{
 
 	-2, -1000, -1000, -1000, 0, -1000, 3, -6, -1000, -1000,
-	-33, 5, -1000, -16, -1000, -1000, -1000, -1000, -1000, -1000,
+	-33, 6, -1000, -15, -1000, -1000, -1000, -1000, -1000, -1000,
+	5, -33, 12, -1000,
 }
 var yyPgo = [...]int{
 
-	0, 18, 17, 4, 14, 13, 5,
+	0, 21, 20, 5, 3, 19, 18, 16,
 }
 var yyR1 = [...]int{
 
-	0, 6, 5, 5, 2, 2, 1, 1, 3, 4,
-	4, 4, 4,
+	0, 6, 5, 5, 2, 2, 1, 1, 7, 3,
+	4, 4, 4, 4,
 }
 var yyR2 = [...]int{
 
-	0, 0, 3, 1, 3, 1, 3, 2, 3, 1,
-	1, 1, 1,
+	0, 0, 3, 1, 3, 1, 3, 2, 0, 7,
+	1, 1, 1, 1,
 }
 var yyChk = [...]int{
 
 	-1000, -5, 68, 2, -6, -1, 11, -2, 12, -3,
 	7, 15, 12, -4, 34, 35, 40, 41, -3, 19,
+	-7, 7, -4, 2,
 }
 var yyDef = [...]int{
 
 	0, -2, 1, 3, 0, 2, 0, 0, 7, 5,
-	0, 0, 6, 0, 9, 10, 11, 12, 4, 8,
+	0, 0, 6, 0, 10, 11, 12, 13, 4, 8,
+	0, 0, 0, 9,
 }
 var yyTok1 = [...]int{
 
@@ -620,26 +623,32 @@ yydefault:
 			yyVAL.matcher = yylex.(*parser).newLabelMatcher(yyDollar[1].item, yyDollar[2].item, yyDollar[3].item)
 		}
 	case 9:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:141
+		yyDollar = yyS[yypt-7 : yypt+1]
+//line promql/generated_parser.y:139
 		{
-			yyVAL.item = yyDollar[1].item
+			yylex.(*parser).errorf("unexpected %v in label matching, expected string", yyDollar[3].item)
 		}
 	case 10:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:142
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 11:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:143
 		{
 			yyVAL.item = yyDollar[1].item
 		}
-	case 12:
+	case 11:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:144
+		{
+			yyVAL.item = yyDollar[1].item
+		}
+	case 12:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line promql/generated_parser.y:145
+		{
+			yyVAL.item = yyDollar[1].item
+		}
+	case 13:
+		yyDollar = yyS[yypt-1 : yypt+1]
+//line promql/generated_parser.y:146
 		{
 			yyVAL.item = yyDollar[1].item
 		}
