@@ -112,8 +112,11 @@
 
 %%
 
-start           : START_LABELS label_matchers QUANTILE
-                     { yylex.(*parser).generatedParserResult = $3}
+start           : START_LABELS label_matchers
+                     { yylex.(*parser).generatedParserResult = &VectorSelector{
+                           LabelMatchers: $2,
+                       }
+                     }
                 ;
 
 
