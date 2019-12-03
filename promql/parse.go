@@ -39,6 +39,8 @@ type parser struct {
 	inject    item
 	injecting bool
 
+	switchSymbols []ItemType
+
 	generatedParserResult Node
 }
 
@@ -360,7 +362,15 @@ func (p *parser) Lex(lval *yySymType) int {
 	}
 	lval.item = p.next()
 
-	return int(lval.item.typ)
+	typ := lval.item.typ
+
+	for _, t := range p.switchSymbols {
+		if t == typ {
+			p.InjectItem(0)
+		}
+	}
+
+	return int(typ)
 }
 
 // Error is expected by the yyLexer interface of the yacc generated parser.
@@ -382,8 +392,8 @@ func (p *parser) InjectItem(typ ItemType) {
 		panic("cannot inject multiple items into the token stream")
 	}
 
-	if typ <= startSymbolsStart || typ >= startSymbolsEnd {
-		panic("cannot inject symbol that isn't start symbol")
+	if typ != 0 && (typ <= startSymbolsStart || typ >= startSymbolsEnd) {
+		panic("cannot inject symbol that isn't start symbol or 0")
 	}
 
 	p.inject = item{typ: typ}
@@ -1126,8 +1136,10 @@ func parseDuration(ds string) (time.Duration, error) {
 	return time.Duration(dur), nil
 }
 
-func (p *parser) parseGenerated(startSymbol ItemType) Node {
+func (p *parser) parseGenerated(startSymbol ItemType, switchSymbols []ItemType) Node {
 	p.InjectItem(startSymbol)
+
+	p.switchSymbols = switchSymbols
 
 	yyParser := yyNewParser()
 
