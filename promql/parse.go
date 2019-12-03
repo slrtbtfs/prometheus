@@ -366,6 +366,7 @@ func (p *parser) Lex(lval *yySymType) int {
 
 	for _, t := range p.switchSymbols {
 		if t == typ {
+			fmt.Println("Switching back")
 			p.InjectItem(0)
 		}
 	}
@@ -950,7 +951,7 @@ func (p *parser) VectorSelector(name string) *VectorSelector {
 	if t := p.peek(); t.typ == LEFT_BRACE {
 		p.generatedParserResult = ret
 
-		p.parseGenerated(START_LABELS, []ItemType{RIGHT_BRACE})
+		p.parseGenerated(START_LABELS, []ItemType{RIGHT_BRACE, EOF})
 	}
 	// Metric name must not be set in the label matchers and before at the same time.
 	if name != "" {
