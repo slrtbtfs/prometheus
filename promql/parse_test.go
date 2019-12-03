@@ -1596,7 +1596,7 @@ func TestParseExpressions(t *testing.T) {
 			testutil.Equals(t, expr, test.expected, "error on input '%s'", test.input)
 		} else {
 			testutil.NotOk(t, err)
-			testutil.Assert(t, strings.Contains(err.Error(), test.errMsg), "unexpected error on input '%s'", test.input)
+			testutil.Assert(t, strings.Contains(err.Error(), test.errMsg), "unexpected error on input '%s', Expected: '%s', Got: '%s'", test.input, test.errMsg, err.Error())
 		}
 	}
 }

@@ -355,12 +355,12 @@ func (p *parser) recover(errp *error) {
 // For more information, see https://godoc.org/golang.org/x/tools/cmd/goyacc.
 func (p *parser) Lex(lval *yySymType) int {
 	if p.injecting {
+		fmt.Println("Got Injection")
 		lval.item = p.inject
 		p.injecting = false
 	} else {
 		lval.item = p.next()
 	}
-	lval.item = p.next()
 
 	typ := lval.item.typ
 
@@ -369,6 +369,8 @@ func (p *parser) Lex(lval *yySymType) int {
 			p.InjectItem(0)
 		}
 	}
+
+	fmt.Println(typ, " ", lval.item)
 
 	return int(typ)
 }
@@ -941,14 +943,18 @@ func (p *parser) offset() time.Duration {
 //		[<metric_identifier>] <label_matchers>
 //
 func (p *parser) VectorSelector(name string) *VectorSelector {
-	var matchers []*labels.Matcher
+	ret := &VectorSelector{
+		Name: name,
+	}
 	// Parse label matching if any.
 	if t := p.peek(); t.typ == LEFT_BRACE {
-		matchers = p.labelMatchers(EQL, NEQ, EQL_REGEX, NEQ_REGEX)
+		p.generatedParserResult = ret
+
+		p.parseGenerated(START_LABELS, []ItemType{RIGHT_BRACE})
 	}
 	// Metric name must not be set in the label matchers and before at the same time.
 	if name != "" {
-		for _, m := range matchers {
+		for _, m := range ret.LabelMatchers {
 			if m.Name == labels.MetricName {
 				p.errorf("metric name must not be set twice: %q or %q", name, m.Value)
 			}
@@ -958,16 +964,16 @@ func (p *parser) VectorSelector(name string) *VectorSelector {
 		if err != nil {
 			panic(err) // Must not happen with metric.Equal.
 		}
-		matchers = append(matchers, m)
+		ret.LabelMatchers = append(ret.LabelMatchers, m)
 	}
 
-	if len(matchers) == 0 {
+	if len(ret.LabelMatchers) == 0 {
 		p.errorf("vector selector must contain label matchers or metric name")
 	}
 	// A Vector selector must contain at least one non-empty matcher to prevent
 	// implicit selection of all metrics (e.g. by a typo).
 	notEmpty := false
-	for _, lm := range matchers {
+	for _, lm := range ret.LabelMatchers {
 		if !lm.Matches("") {
 			notEmpty = true
 			break
@@ -977,10 +983,7 @@ func (p *parser) VectorSelector(name string) *VectorSelector {
 		p.errorf("vector selector must contain at least one non-empty matcher")
 	}
 
-	return &VectorSelector{
-		Name:          name,
-		LabelMatchers: matchers,
-	}
+	return ret
 }
 
 // expectType checks the type of the node and raises an error if it
@@ -1140,6 +1143,8 @@ func (p *parser) parseGenerated(startSymbol ItemType, switchSymbols []ItemType) 
 	p.InjectItem(startSymbol)
 
 	p.switchSymbols = switchSymbols
+
+	fmt.Println("Switching")
 
 	yyParser := yyNewParser()
 
