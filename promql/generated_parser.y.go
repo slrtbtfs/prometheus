@@ -164,7 +164,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line generated_parser.y:271
+//line generated_parser.y:153
 
 //line yacctab:1
 var yyExca = [...]int{
@@ -175,84 +175,49 @@ var yyExca = [...]int{
 
 const yyPrivate = 57344
 
-const yyLast = 150
+const yyLast = 67
 
 var yyAct = [...]int{
 
-	19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-	29, 30, 31, 32, 33, 73, 35, 36, 37, 38,
-	39, 6, 40, 41, 42, 43, 44, 45, 46, 47,
-	75, 76, 48, 49, 50, 51, 77, 78, 52, 18,
-	9, 53, 54, 55, 56, 57, 58, 59, 60, 61,
-	62, 63, 72, 74, 64, 65, 66, 67, 68, 69,
-	70, 71, 19, 20, 21, 22, 23, 24, 25, 26,
-	27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-	37, 38, 39, 3, 40, 41, 42, 43, 44, 45,
-	46, 47, 14, 15, 48, 49, 50, 51, 16, 17,
-	52, 10, 4, 53, 54, 55, 56, 57, 58, 59,
-	60, 61, 62, 63, 1, 13, 64, 65, 66, 67,
-	68, 69, 70, 71, 12, 10, 7, 11, 5, 0,
-	8, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
+	3, 18, 21, 12, 10, 9, 11, 6, 10, 8,
+	4, 1, 13, 7, 5, 0, 0, 19, 0, 20,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 14, 15, 0, 0, 0, 0, 16,
+	17, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 2,
 }
 var yyPact = [...]int{
 
-	81, -1000, -1000, -1000, 10, -1000, 118, 112, -1000, -1000,
-	58, 94, -1000, -4, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
+	-2, -1000, -1000, -1000, -4, -1000, -3, -9, -1000, -1000,
+	-1, 1, -1000, 0, -1000, -1000, -1000, -1000, -1000, -1000,
+	-1000, -1000,
 }
 var yyPgo = [...]int{
 
-	0, 128, 126, 40, 115, 39, 114, 102,
+	0, 14, 13, 5, 12, 11, 10,
 }
 var yyR1 = [...]int{
 
-	0, 7, 6, 6, 2, 2, 1, 1, 3, 3,
-	4, 4, 4, 4, 4, 5, 5, 5, 5, 5,
-	5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-	5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-	5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-	5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-	5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-	5, 5,
+	0, 6, 5, 5, 2, 2, 1, 1, 3, 3,
+	4, 4, 4, 4, 4,
 }
 var yyR2 = [...]int{
 
 	0, 0, 3, 1, 3, 1, 3, 2, 3, 3,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1,
+	1, 1, 1, 1, 1,
 }
 var yyChk = [...]int{
 
-	-1000, -6, 68, 2, -7, -1, 11, -2, 12, -3,
-	7, 15, 12, -4, 34, 35, 40, 41, -5, 4,
-	5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-	15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-	26, 27, 28, 29, 30, 31, 32, 33, 36, 37,
-	38, 39, 42, 45, 46, 47, 48, 49, 50, 51,
-	52, 53, 54, 55, 58, 59, 60, 61, 62, 63,
-	64, 65, -3, 19, -5, 34, 35, 40, 41,
+	-1000, -5, 68, 2, -6, -1, 11, -2, 12, -3,
+	7, 15, 12, -4, 34, 35, 40, 41, 2, -3,
+	19, 2,
 }
 var yyDef = [...]int{
 
 	0, -2, 1, 3, 0, 2, 0, 0, 7, 5,
-	0, 0, 6, 0, 10, 11, 12, 13, 14, 15,
-	16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-	26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-	36, 37, 38, 39, 40, 41, 42, 43, 46, 47,
-	48, 49, 52, 53, 54, 55, 56, 57, 58, 59,
-	60, 61, 62, 63, 64, 65, 66, 67, 68, 69,
-	70, 71, 4, 8, 9, 44, 45, 50, 51,
+	0, 0, 6, 0, 10, 11, 12, 13, 14, 4,
+	8, 9,
 }
 var yyTok1 = [...]int{
 
@@ -611,429 +576,87 @@ yydefault:
 
 	case 1:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:117
+//line generated_parser.y:115
 		{
 			__yyfmt__.Println("Did Something")
 		}
 	case 2:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line generated_parser.y:118
+//line generated_parser.y:116
 		{
 			yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = yyDollar[3].matchers
 		}
 	case 3:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:119
+//line generated_parser.y:118
 		{
-			__yyfmt__.Println("Fuck")
+			yylex.(*parser).errorf("unknown syntax error after parsing %v", yylex.(*parser).token.desc())
 		}
 	case 4:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line generated_parser.y:125
+//line generated_parser.y:124
 		{
 			yyVAL.matchers = append(yyDollar[1].matchers, yyDollar[3].matcher)
 		}
 	case 5:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:127
+//line generated_parser.y:126
 		{
 			yyVAL.matchers = []*labels.Matcher{yyDollar[1].matcher}
 		}
 	case 6:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line generated_parser.y:132
+//line generated_parser.y:131
 		{
 			yyVAL.matchers = yyDollar[2].matchers
 		}
 	case 7:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line generated_parser.y:134
+//line generated_parser.y:133
 		{
 			yyVAL.matchers = []*labels.Matcher{}
 		}
 	case 8:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line generated_parser.y:140
+//line generated_parser.y:139
 		{
 			yyVAL.matcher = yylex.(*parser).newLabelMatcher(yyDollar[1].item, yyDollar[2].item, yyDollar[3].item)
 		}
 	case 9:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line generated_parser.y:142
+//line generated_parser.y:141
 		{
-			yylex.(*parser).errorf("unexpected %v in label matching, expected string", yyDollar[3].item.desc())
+			yylex.(*parser).errorf("unexpected %v in label matching, expected string", yylex.(*parser).token.desc())
 		}
 	case 10:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:146
+//line generated_parser.y:145
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 11:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:147
+//line generated_parser.y:146
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 12:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:148
+//line generated_parser.y:147
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 13:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:149
+//line generated_parser.y:148
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 14:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:151
+//line generated_parser.y:150
 		{
-			yylex.(*parser).errorf("expected label matching operator but got %s", yyDollar[1].item.val)
-		}
-	case 15:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:156
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 16:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:158
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 17:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:160
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 18:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:162
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 19:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:164
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 20:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:166
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 21:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:168
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 22:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:170
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 23:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:172
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 24:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:174
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 25:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:176
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 26:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:178
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 27:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:180
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 28:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:182
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 29:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:184
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 30:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:186
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 31:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:188
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 32:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:190
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 33:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:192
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 34:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:194
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 35:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:196
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 36:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:198
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 37:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:200
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 38:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:202
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 39:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:204
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 40:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:206
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 41:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:208
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 42:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:210
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 43:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:212
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 44:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:214
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 45:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:216
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 46:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:218
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 47:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:220
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 48:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:222
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 49:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:224
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 50:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:226
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 51:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:228
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 52:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:230
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 53:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:232
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 54:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:234
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 55:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:236
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 56:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:238
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 57:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:240
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 58:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:242
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 59:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:244
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 60:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:246
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 61:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:248
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 62:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:250
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 63:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:252
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 64:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:254
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 65:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:256
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 66:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:258
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 67:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:260
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 68:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:262
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 69:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:264
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 70:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:266
-		{
-			yyVAL.item = yyDollar[1].item
-		}
-	case 71:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:268
-		{
-			yyVAL.item = yyDollar[1].item
+			yylex.(*parser).errorf("expected label matching operator but got %s", yylex.(*parser).token.val)
 		}
 	}
 	goto yystack /* stack new state and value */

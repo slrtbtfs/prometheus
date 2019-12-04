@@ -108,15 +108,14 @@
 
 %type <item> match_op
 
-%type <item> anything
-
 %start start
 
 %%
 
 start           : START_LABELS {__yyfmt__.Println("Did Something") } label_matchers
                      {yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = $3}
-                | error {__yyfmt__.Println("Fuck")}
+                | error 
+                        { yylex.(*parser).errorf("unknown syntax error after parsing %v", yylex.(*parser).token.desc()) }
                 ;
 
 
@@ -138,8 +137,8 @@ label_matchers  :
 label_matcher   :
                 IDENTIFIER match_op STRING
                         { $$ = yylex.(*parser).newLabelMatcher($1, $2, $3) }
-                | IDENTIFIER match_op anything
-                        { yylex.(*parser).errorf("unexpected %v in label matching, expected string", $3.desc())}
+                | IDENTIFIER match_op error
+                        { yylex.(*parser).errorf("unexpected %v in label matching, expected string", yylex.(*parser).token.desc())}
                 ;
 
 match_op        :
@@ -147,125 +146,8 @@ match_op        :
                 | NEQ {$$=$1}
                 | EQL_REGEX {$$=$1}
                 | NEQ_REGEX {$$=$1}
-                | anything
-                        { yylex.(*parser).errorf("expected label matching operator but got %s", $1.val) } 
-                ;
-
-anything:    
-                ERROR 
-                        { $$ = $1 }
-                | EOF
-                        { $$ = $1 }
-                | COMMENT
-                        { $$ = $1 }
-                | IDENTIFIER
-                        { $$ = $1 }
-                | METRIC_IDENTIFIER
-                        { $$ = $1 }
-                | LEFT_PAREN
-                        { $$ = $1 }
-                | RIGHT_PAREN
-                        { $$ = $1 }
-                | LEFT_BRACE
-                        { $$ = $1 }
-                | RIGHT_BRACE
-                        { $$ = $1 }
-                | LEFT_BRACKET
-                        { $$ = $1 }
-                | RIGHT_BRACKET
-                        { $$ = $1 }
-                | COMMA
-                        { $$ = $1 }
-                | ASSIGN
-                        { $$ = $1 }
-                | COLON
-                        { $$ = $1 }
-                | SEMICOLON
-                        { $$ = $1 }
-                | STRING
-                        { $$ = $1 }
-                | NUMBER
-                        { $$ = $1 }
-                | DURATION
-                        { $$ = $1 }
-                | BLANK
-                        { $$ = $1 }
-                | TIMES
-                        { $$ = $1 }
-                | SPACE
-                        { $$ = $1 }
-                | SUB
-                        { $$ = $1 }
-                | ADD
-                        { $$ = $1 }
-                | MUL
-                        { $$ = $1 }
-                | MOD
-                        { $$ = $1 }
-                | DIV
-                        { $$ = $1 }
-                | LAND
-                        { $$ = $1 }
-                | LOR
-                        { $$ = $1 }
-                | LUNLESS
-                        { $$ = $1 }
-                | EQL
-                        { $$ = $1 }
-                | NEQ
-                        { $$ = $1 }
-                | LTE
-                        { $$ = $1 }
-                | LSS
-                        { $$ = $1 }
-                | GTE
-                        { $$ = $1 }
-                | GTR
-                        { $$ = $1 }
-                | EQL_REGEX
-                        { $$ = $1 }
-                | NEQ_REGEX
-                        { $$ = $1 }
-                | POW
-                        { $$ = $1 }
-                | AVG
-                        { $$ = $1 }
-                | COUNT
-                        { $$ = $1 }
-                | SUM
-                        { $$ = $1 }
-                | MIN
-                        { $$ = $1 }
-                | MAX
-                        { $$ = $1 }
-                | STDDEV
-                        { $$ = $1 }
-                | STDVAR
-                        { $$ = $1 }
-                | TOPK
-                        { $$ = $1 }
-                | BOTTOMK
-                        { $$ = $1 }
-                | COUNT_VALUES
-                        { $$ = $1 }
-                | QUANTILE
-                        { $$ = $1 }
-                | OFFSET
-                        { $$ = $1 }
-                | BY
-                        { $$ = $1 }
-                | WITHOUT
-                        { $$ = $1 }
-                | ON
-                        { $$ = $1 }
-                | IGNORING
-                        { $$ = $1 }
-                | GROUP_LEFT
-                        { $$ = $1 }
-                | GROUP_RIGHT
-                        { $$ = $1 }
-                | BOOL
-                        { $$ = $1 }
+                | error 
+                        { yylex.(*parser).errorf("expected label matching operator but got %s", yylex.(*parser).token.val) } 
                 ;
 
 %%

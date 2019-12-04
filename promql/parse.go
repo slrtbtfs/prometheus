@@ -380,7 +380,7 @@ func (p *parser) Lex(lval *yySymType) int {
 //
 // For more information, see https://godoc.org/golang.org/x/tools/cmd/goyacc.
 func (p *parser) Error(e string) {
-	p.errorf(e)
+	//p.errorf(e)
 }
 
 // InjectItem allows injecting a single item at the beginning of the token stream
