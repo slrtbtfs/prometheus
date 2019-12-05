@@ -355,7 +355,6 @@ func (p *parser) recover(errp *error) {
 // For more information, see https://godoc.org/golang.org/x/tools/cmd/goyacc.
 func (p *parser) Lex(lval *yySymType) int {
 	if p.injecting {
-		fmt.Println("Got Injection")
 		lval.item = p.inject
 		p.injecting = false
 	} else {
@@ -366,12 +365,9 @@ func (p *parser) Lex(lval *yySymType) int {
 
 	for _, t := range p.switchSymbols {
 		if t == typ {
-			fmt.Println("Switching back")
 			p.InjectItem(0)
 		}
 	}
-
-	fmt.Println(typ, " ", lval.item)
 
 	return int(typ)
 }
@@ -1145,17 +1141,7 @@ func (p *parser) parseGenerated(startSymbol ItemType, switchSymbols []ItemType) 
 
 	p.switchSymbols = switchSymbols
 
-	fmt.Println("Switching")
-
-	yyParser := yyNewParser()
-
-	yyParser.Parse(p)
-
-	fmt.Println("Lookahead: ", yyParser.Lookahead())
-
-	if yyParser.Lookahead() != -1 {
-		p.backup()
-	}
+	yyParse(p)
 
 	return p.generatedParserResult
 

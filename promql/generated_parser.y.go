@@ -179,45 +179,45 @@ const yyLast = 67
 
 var yyAct = [...]int{
 
-	3, 18, 21, 12, 10, 9, 11, 6, 10, 8,
-	4, 1, 13, 7, 5, 0, 0, 19, 0, 20,
+	3, 17, 20, 11, 9, 5, 10, 8, 9, 7,
+	1, 12, 6, 4, 0, 0, 0, 0, 18, 19,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 14, 15, 0, 0, 0, 0, 16,
-	17, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 13, 14, 0, 0, 0, 0, 15,
+	16, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 2,
 }
 var yyPact = [...]int{
 
-	-2, -1000, -1000, -1000, -4, -1000, -3, -9, -1000, -1000,
-	-1, 1, -1000, 0, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000,
+	-2, -1000, -6, -1000, -1000, -3, -9, -1000, -1000, -1,
+	1, -1000, 0, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
+	-1000,
 }
 var yyPgo = [...]int{
 
-	0, 14, 13, 5, 12, 11, 10,
+	0, 13, 12, 7, 11, 10,
 }
 var yyR1 = [...]int{
 
-	0, 6, 5, 5, 2, 2, 1, 1, 3, 3,
-	4, 4, 4, 4, 4,
+	0, 5, 5, 2, 2, 1, 1, 3, 3, 4,
+	4, 4, 4, 4,
 }
 var yyR2 = [...]int{
 
-	0, 0, 3, 1, 3, 1, 3, 2, 3, 3,
-	1, 1, 1, 1, 1,
+	0, 2, 1, 3, 1, 3, 2, 3, 3, 1,
+	1, 1, 1, 1,
 }
 var yyChk = [...]int{
 
-	-1000, -5, 68, 2, -6, -1, 11, -2, 12, -3,
-	7, 15, 12, -4, 34, 35, 40, 41, 2, -3,
-	19, 2,
+	-1000, -5, 68, 2, -1, 11, -2, 12, -3, 7,
+	15, 12, -4, 34, 35, 40, 41, 2, -3, 19,
+	2,
 }
 var yyDef = [...]int{
 
-	0, -2, 1, 3, 0, 2, 0, 0, 7, 5,
-	0, 0, 6, 0, 10, 11, 12, 13, 14, 4,
-	8, 9,
+	0, -2, 0, 2, 1, 0, 0, 6, 4, 0,
+	0, 5, 0, 9, 10, 11, 12, 13, 3, 7,
+	8,
 }
 var yyTok1 = [...]int{
 
@@ -575,84 +575,78 @@ yydefault:
 	switch yynt {
 
 	case 1:
-		yyDollar = yyS[yypt-1 : yypt+1]
-//line generated_parser.y:115
-		{
-			__yyfmt__.Println("Did Something")
-		}
-	case 2:
-		yyDollar = yyS[yypt-3 : yypt+1]
+		yyDollar = yyS[yypt-2 : yypt+1]
 //line generated_parser.y:116
 		{
-			yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = yyDollar[3].matchers
+			yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = yyDollar[2].matchers
 		}
-	case 3:
+	case 2:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line generated_parser.y:118
 		{
 			yylex.(*parser).errorf("unknown syntax error after parsing %v", yylex.(*parser).token.desc())
 		}
-	case 4:
+	case 3:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line generated_parser.y:124
 		{
 			yyVAL.matchers = append(yyDollar[1].matchers, yyDollar[3].matcher)
 		}
-	case 5:
+	case 4:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line generated_parser.y:126
 		{
 			yyVAL.matchers = []*labels.Matcher{yyDollar[1].matcher}
 		}
-	case 6:
+	case 5:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line generated_parser.y:131
 		{
 			yyVAL.matchers = yyDollar[2].matchers
 		}
-	case 7:
+	case 6:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line generated_parser.y:133
 		{
 			yyVAL.matchers = []*labels.Matcher{}
 		}
-	case 8:
+	case 7:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line generated_parser.y:139
 		{
 			yyVAL.matcher = yylex.(*parser).newLabelMatcher(yyDollar[1].item, yyDollar[2].item, yyDollar[3].item)
 		}
-	case 9:
+	case 8:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line generated_parser.y:141
 		{
 			yylex.(*parser).errorf("unexpected %v in label matching, expected string", yylex.(*parser).token.desc())
 		}
-	case 10:
+	case 9:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line generated_parser.y:145
 		{
 			yyVAL.item = yyDollar[1].item
 		}
-	case 11:
+	case 10:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line generated_parser.y:146
 		{
 			yyVAL.item = yyDollar[1].item
 		}
-	case 12:
+	case 11:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line generated_parser.y:147
 		{
 			yyVAL.item = yyDollar[1].item
 		}
-	case 13:
+	case 12:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line generated_parser.y:148
 		{
 			yyVAL.item = yyDollar[1].item
 		}
-	case 14:
+	case 13:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line generated_parser.y:150
 		{

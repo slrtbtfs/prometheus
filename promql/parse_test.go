@@ -14,6 +14,7 @@
 package promql
 
 import (
+	"fmt"
 	"math"
 	"strings"
 	"testing"
@@ -1587,6 +1588,8 @@ var testExpr = []struct {
 func TestParseExpressions(t *testing.T) {
 	for _, test := range testExpr {
 		expr, err := ParseExpr(test.input)
+
+		fmt.Println(test.input)
 
 		// Unexpected errors are always caused by a bug.
 		testutil.Assert(t, err != errUnexpected, "unexpected error occurred")

@@ -112,8 +112,8 @@
 
 %%
 
-start           : START_LABELS {__yyfmt__.Println("Did Something") } label_matchers
-                     {yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = $3}
+start           : START_LABELS label_matchers
+                     {yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = $2}
                 | error 
                         { yylex.(*parser).errorf("unknown syntax error after parsing %v", yylex.(*parser).token.desc()) }
                 ;
