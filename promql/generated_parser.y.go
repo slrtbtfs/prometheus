@@ -654,7 +654,7 @@ yydefault:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:137
 		{
-			yylex.(*parser).errorf("unexpected %v", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("", "")
 		}
 	case 6:
 		yyDollar = yyS[yypt-3 : yypt+1]
@@ -690,7 +690,7 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:157
 		{
-			yylex.(*parser).errorf("unexpected %v in label matching, expected \",\" or \"}\"", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("label matching", "\",\" or \"}\"")
 		}
 	case 12:
 		yyDollar = yyS[yypt-3 : yypt+1]
@@ -702,19 +702,19 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line promql/generated_parser.y:164
 		{
-			yylex.(*parser).errorf("unexpected %v in label matching, expected string", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("label matching", "string")
 		}
 	case 14:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:166
 		{
-			yylex.(*parser).errorf("unexpected %v in label matching, expected label matching operator", yylex.(*parser).token.Val)
+			yylex.(*parser).unexpected("label matching", "label matching operator")
 		}
 	case 15:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:168
 		{
-			yylex.(*parser).errorf("unexpected %v in label matching, expected identifier or \"}\"", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("label matching", "identifier or \"}\"")
 		}
 	case 16:
 		yyDollar = yyS[yypt-1 : yypt+1]
@@ -811,7 +811,7 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:210
 		{
-			yylex.(*parser).errorf("unexpected %v in label set, expected \",\" or \"}\"", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("label set", "\",\" or \"}\"")
 		}
 	case 32:
 		yyDollar = yyS[yypt-3 : yypt+1]
@@ -823,19 +823,19 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line promql/generated_parser.y:218
 		{
-			yylex.(*parser).errorf("unexpected %v in label set, expected string", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("label set", "string")
 		}
 	case 34:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:220
 		{
-			yylex.(*parser).errorf("unexpected %v in label set, expected \"=\"", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("label set", "\"=\"")
 		}
 	case 35:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:222
 		{
-			yylex.(*parser).errorf("unexpected %v in label set, expected identifier or \"}\"", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("label set", "identifier or \"}\"")
 		}
 	case 36:
 		yyDollar = yyS[yypt-3 : yypt+1]
@@ -859,7 +859,7 @@ yydefault:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:233
 		{
-			yylex.(*parser).errorf("unexpected %v in grouping opts, expected \"(\"", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("grouping opts", "\"(\"")
 		}
 	case 40:
 		yyDollar = yyS[yypt-3 : yypt+1]
@@ -877,14 +877,14 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:243
 		{
-			yylex.(*parser).errorf("unexpected %v in grouping opts, expected \",\" or \"}\"", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("grouping opts", "\",\" or \"}\"")
 		}
 	case 43:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:248
 		{
 			if !isLabel(yyDollar[1].item.Val) {
-				yylex.(*parser).errorf("unexpected %s in grouping opts, expected label", yyDollar[1].item.desc())
+				yylex.(*parser).unexpected("grouping opts", "label")
 			}
 			yyVAL.item = yyDollar[1].item
 		}
@@ -892,7 +892,7 @@ yydefault:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:255
 		{
-			yylex.(*parser).errorf("unexpected %s in grouping opts, expected label", yylex.(*parser).token.desc())
+			yylex.(*parser).unexpected("grouping opts", "label")
 		}
 	}
 	goto yystack /* stack new state and value */
