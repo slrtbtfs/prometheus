@@ -310,6 +310,8 @@ series_values   :
                         { $$ = append($1, $3...) }
                 | series_values SPACE
                         { $$ = $1 }
+                | error
+                        { yylex.(*parser).unexpected("series values", "") }
                 ;
 
 series_item     :
