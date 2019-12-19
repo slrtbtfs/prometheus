@@ -18,17 +18,13 @@ import (
 
 //line promql/generated_parser.y:27
 type yySymType struct {
-	yys      int
-	node     Node
-	item     Item
-	matchers interface{}
-	matcher  interface{}
-	label    labels.Label
-	labels   interface{}
-	strings  interface{}
-	series   interface{}
-	uint     uint64
-	float    float64
+	yys     int
+	node    Node
+	item    Item
+	generic interface{}
+	label   labels.Label
+	uint    uint64
+	float   float64
 }
 
 const ERROR = 57346
@@ -183,7 +179,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line promql/generated_parser.y:383
+//line promql/generated_parser.y:379
 
 //line yacctab:1
 var yyExca = [...]int{
@@ -662,260 +658,260 @@ yydefault:
 
 	case 1:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:139
+//line promql/generated_parser.y:135
 		{
-			yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = yyDollar[2].matchers.([]*labels.Matcher)
+			yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = yyDollar[2].generic.([]*labels.Matcher)
 		}
 	case 2:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:141
+//line promql/generated_parser.y:137
 		{
-			yylex.(*parser).generatedParserResult = yyDollar[2].labels
+			yylex.(*parser).generatedParserResult = yyDollar[2].generic
 		}
 	case 3:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:143
+//line promql/generated_parser.y:139
 		{
-			yylex.(*parser).generatedParserResult = yyDollar[2].labels
+			yylex.(*parser).generatedParserResult = yyDollar[2].generic
 		}
 	case 4:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:145
+//line promql/generated_parser.y:141
 		{
-			yylex.(*parser).generatedParserResult = yyDollar[2].strings
+			yylex.(*parser).generatedParserResult = yyDollar[2].generic
 		}
 	case 5:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:146
+//line promql/generated_parser.y:142
 		{
 			yylex.(*parser).generatedParserResult = &seriesDescription{}
 		}
 	case 8:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:149
+//line promql/generated_parser.y:145
 		{
 			yylex.(*parser).unexpected("", "")
 		}
 	case 9:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:155
+//line promql/generated_parser.y:151
 		{
-			yyVAL.matchers = yyDollar[2].matchers
+			yyVAL.generic = yyDollar[2].generic
 		}
 	case 10:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line promql/generated_parser.y:157
+//line promql/generated_parser.y:153
 		{
-			yyVAL.matchers = yyDollar[2].matchers
+			yyVAL.generic = yyDollar[2].generic
 		}
 	case 11:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:159
+//line promql/generated_parser.y:155
 		{
-			yyVAL.matchers = []*labels.Matcher{}
+			yyVAL.generic = []*labels.Matcher{}
 		}
 	case 12:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:165
+//line promql/generated_parser.y:161
 		{
-			yyVAL.matchers = append(yyDollar[1].matchers.([]*labels.Matcher), yyDollar[3].matcher.(*labels.Matcher))
+			yyVAL.generic = append(yyDollar[1].generic.([]*labels.Matcher), yyDollar[3].generic.(*labels.Matcher))
 		}
 	case 13:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:167
+//line promql/generated_parser.y:163
 		{
-			yyVAL.matchers = []*labels.Matcher{yyDollar[1].matcher.(*labels.Matcher)}
+			yyVAL.generic = []*labels.Matcher{yyDollar[1].generic.(*labels.Matcher)}
 		}
 	case 14:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:169
+//line promql/generated_parser.y:165
 		{
 			yylex.(*parser).unexpected("label matching", "\",\" or \"}\"")
 		}
 	case 15:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:174
+//line promql/generated_parser.y:170
 		{
-			yyVAL.matcher = yylex.(*parser).newLabelMatcher(yyDollar[1].item, yyDollar[2].item, yyDollar[3].item)
+			yyVAL.generic = yylex.(*parser).newLabelMatcher(yyDollar[1].item, yyDollar[2].item, yyDollar[3].item)
 		}
 	case 16:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:176
+//line promql/generated_parser.y:172
 		{
 			yylex.(*parser).unexpected("label matching", "string")
 		}
 	case 17:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:178
+//line promql/generated_parser.y:174
 		{
 			yylex.(*parser).unexpected("label matching", "label matching operator")
 		}
 	case 18:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:180
+//line promql/generated_parser.y:176
 		{
 			yylex.(*parser).unexpected("label matching", "identifier or \"}\"")
 		}
 	case 19:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:184
+//line promql/generated_parser.y:180
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 20:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:185
+//line promql/generated_parser.y:181
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 21:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:186
+//line promql/generated_parser.y:182
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 22:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:187
+//line promql/generated_parser.y:183
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 23:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:193
+//line promql/generated_parser.y:189
 		{
-			yyVAL.labels = append(yyDollar[2].labels.(labels.Labels), labels.Label{Name: labels.MetricName, Value: yyDollar[1].item.Val})
-			sort.Sort(yyVAL.labels.(labels.Labels))
+			yyVAL.generic = append(yyDollar[2].generic.(labels.Labels), labels.Label{Name: labels.MetricName, Value: yyDollar[1].item.Val})
+			sort.Sort(yyVAL.generic.(labels.Labels))
 		}
 	case 24:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:195
+//line promql/generated_parser.y:191
 		{
-			yyVAL.labels = yyDollar[1].labels
+			yyVAL.generic = yyDollar[1].generic
 		}
 	case 25:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:197
+//line promql/generated_parser.y:193
 		{
 			yylex.(*parser).errorf("missing metric name or metric selector")
 		}
 	case 26:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:202
+//line promql/generated_parser.y:198
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 27:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:203
+//line promql/generated_parser.y:199
 		{
 			yyVAL.item = yyDollar[1].item
 		}
 	case 28:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:207
+//line promql/generated_parser.y:203
 		{
-			yyVAL.labels = labels.New(yyDollar[2].labels.([]labels.Label)...)
+			yyVAL.generic = labels.New(yyDollar[2].generic.([]labels.Label)...)
 		}
 	case 29:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line promql/generated_parser.y:209
+//line promql/generated_parser.y:205
 		{
-			yyVAL.labels = labels.New(yyDollar[2].labels.([]labels.Label)...)
+			yyVAL.generic = labels.New(yyDollar[2].generic.([]labels.Label)...)
 		}
 	case 30:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:211
+//line promql/generated_parser.y:207
 		{
-			yyVAL.labels = labels.New()
+			yyVAL.generic = labels.New()
 		}
 	case 31:
 		yyDollar = yyS[yypt-0 : yypt+1]
-//line promql/generated_parser.y:213
+//line promql/generated_parser.y:209
 		{
-			yyVAL.labels = labels.New()
+			yyVAL.generic = labels.New()
 		}
 	case 32:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:218
+//line promql/generated_parser.y:214
 		{
-			yyVAL.labels = append(yyDollar[1].labels.([]labels.Label), yyDollar[3].label)
+			yyVAL.generic = append(yyDollar[1].generic.([]labels.Label), yyDollar[3].label)
 		}
 	case 33:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:220
+//line promql/generated_parser.y:216
 		{
-			yyVAL.labels = []labels.Label{yyDollar[1].label}
+			yyVAL.generic = []labels.Label{yyDollar[1].label}
 		}
 	case 34:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:222
+//line promql/generated_parser.y:218
 		{
 			yylex.(*parser).unexpected("label set", "\",\" or \"}\"")
 		}
 	case 35:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:228
+//line promql/generated_parser.y:224
 		{
 			yyVAL.label = labels.Label{Name: yyDollar[1].item.Val, Value: yylex.(*parser).unquoteString(yyDollar[3].item.Val)}
 		}
 	case 36:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:230
+//line promql/generated_parser.y:226
 		{
 			yylex.(*parser).unexpected("label set", "string")
 		}
 	case 37:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:232
+//line promql/generated_parser.y:228
 		{
 			yylex.(*parser).unexpected("label set", "\"=\"")
 		}
 	case 38:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:234
+//line promql/generated_parser.y:230
 		{
 			yylex.(*parser).unexpected("label set", "identifier or \"}\"")
 		}
 	case 39:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:239
+//line promql/generated_parser.y:235
 		{
-			yyVAL.strings = yyDollar[2].strings
+			yyVAL.generic = yyDollar[2].generic
 		}
 	case 40:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:241
+//line promql/generated_parser.y:237
 		{
-			yyVAL.strings = []string{}
+			yyVAL.generic = []string{}
 		}
 	case 41:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:243
+//line promql/generated_parser.y:239
 		{
 			yylex.(*parser).unexpected("grouping opts", "\"(\"")
 		}
 	case 42:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:249
+//line promql/generated_parser.y:245
 		{
-			yyVAL.strings = append(yyDollar[1].strings.([]string), yyDollar[3].item.Val)
+			yyVAL.generic = append(yyDollar[1].generic.([]string), yyDollar[3].item.Val)
 		}
 	case 43:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:251
+//line promql/generated_parser.y:247
 		{
-			yyVAL.strings = []string{yyDollar[1].item.Val}
+			yyVAL.generic = []string{yyDollar[1].item.Val}
 		}
 	case 44:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:253
+//line promql/generated_parser.y:249
 		{
 			yylex.(*parser).unexpected("grouping opts", "\",\" or \"}\"")
 		}
 	case 45:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:258
+//line promql/generated_parser.y:254
 		{
 			if !isLabel(yyDollar[1].item.Val) {
 				yylex.(*parser).unexpected("grouping opts", "label")
@@ -924,86 +920,86 @@ yydefault:
 		}
 	case 46:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:265
+//line promql/generated_parser.y:261
 		{
 			yylex.(*parser).unexpected("grouping opts", "label")
 		}
 	case 70:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:298
+//line promql/generated_parser.y:294
 		{
 			yylex.(*parser).generatedParserResult = &seriesDescription{
-				labels: yyDollar[1].labels.(labels.Labels),
-				values: yyDollar[2].series.([]sequenceValue),
+				labels: yyDollar[1].generic.(labels.Labels),
+				values: yyDollar[2].generic.([]sequenceValue),
 			}
 		}
 	case 71:
 		yyDollar = yyS[yypt-0 : yypt+1]
-//line promql/generated_parser.y:308
+//line promql/generated_parser.y:304
 		{
-			yyVAL.series = []sequenceValue{}
+			yyVAL.generic = []sequenceValue{}
 		}
 	case 72:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:310
+//line promql/generated_parser.y:306
 		{
-			yyVAL.series = append(yyDollar[1].series.([]sequenceValue), yyDollar[3].series.([]sequenceValue)...)
+			yyVAL.generic = append(yyDollar[1].generic.([]sequenceValue), yyDollar[3].generic.([]sequenceValue)...)
 		}
 	case 73:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:312
+//line promql/generated_parser.y:308
 		{
-			yyVAL.series = yyDollar[1].series.([]sequenceValue)
+			yyVAL.generic = yyDollar[1].generic.([]sequenceValue)
 		}
 	case 74:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:314
+//line promql/generated_parser.y:310
 		{
 			yylex.(*parser).unexpected("series values", "")
 		}
 	case 75:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:319
+//line promql/generated_parser.y:315
 		{
-			yyVAL.series = []sequenceValue{{omitted: true}}
+			yyVAL.generic = []sequenceValue{{omitted: true}}
 		}
 	case 76:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:321
+//line promql/generated_parser.y:317
 		{
-			yyVAL.series = []sequenceValue{}
+			yyVAL.generic = []sequenceValue{}
 			for i := uint64(0); i < yyDollar[3].uint; i++ {
-				yyVAL.series = append(yyVAL.series.([]sequenceValue), sequenceValue{omitted: true})
+				yyVAL.generic = append(yyVAL.generic.([]sequenceValue), sequenceValue{omitted: true})
 			}
 		}
 	case 77:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:328
+//line promql/generated_parser.y:324
 		{
-			yyVAL.series = []sequenceValue{{value: yyDollar[1].float}}
+			yyVAL.generic = []sequenceValue{{value: yyDollar[1].float}}
 		}
 	case 78:
 		yyDollar = yyS[yypt-3 : yypt+1]
-//line promql/generated_parser.y:330
+//line promql/generated_parser.y:326
 		{
-			yyVAL.series = []sequenceValue{}
+			yyVAL.generic = []sequenceValue{}
 			for i := uint64(0); i <= yyDollar[3].uint; i++ {
-				yyVAL.series = append(yyVAL.series.([]sequenceValue), sequenceValue{value: yyDollar[1].float})
+				yyVAL.generic = append(yyVAL.generic.([]sequenceValue), sequenceValue{value: yyDollar[1].float})
 			}
 		}
 	case 79:
 		yyDollar = yyS[yypt-4 : yypt+1]
-//line promql/generated_parser.y:337
+//line promql/generated_parser.y:333
 		{
-			yyVAL.series = []sequenceValue{}
+			yyVAL.generic = []sequenceValue{}
 			for i := uint64(0); i <= yyDollar[4].uint; i++ {
-				yyVAL.series = append(yyVAL.series.([]sequenceValue), sequenceValue{value: yyDollar[1].float})
+				yyVAL.generic = append(yyVAL.generic.([]sequenceValue), sequenceValue{value: yyDollar[1].float})
 				yyDollar[1].float += yyDollar[2].float
 			}
 		}
 	case 80:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:346
+//line promql/generated_parser.y:342
 		{
 			var err error
 			yyVAL.uint, err = strconv.ParseUint(yyDollar[1].item.Val, 10, 64)
@@ -1013,19 +1009,19 @@ yydefault:
 		}
 	case 81:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:357
+//line promql/generated_parser.y:353
 		{
 			yyVAL.float = yyDollar[2].float
 		}
 	case 82:
 		yyDollar = yyS[yypt-2 : yypt+1]
-//line promql/generated_parser.y:359
+//line promql/generated_parser.y:355
 		{
 			yyVAL.float = -yyDollar[2].float
 		}
 	case 83:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:364
+//line promql/generated_parser.y:360
 		{
 			if yyDollar[1].item.Val != "stale" {
 				yylex.(*parser).unexpected("series values", "number or \"stale\"")
@@ -1034,19 +1030,19 @@ yydefault:
 		}
 	case 84:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:371
+//line promql/generated_parser.y:367
 		{
 			yyVAL.float = yyDollar[1].float
 		}
 	case 85:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:373
+//line promql/generated_parser.y:369
 		{
 			yyVAL.float = yyDollar[1].float
 		}
 	case 86:
 		yyDollar = yyS[yypt-1 : yypt+1]
-//line promql/generated_parser.y:380
+//line promql/generated_parser.y:376
 		{
 			yyVAL.float = yylex.(*parser).number(yyDollar[1].item.Val)
 		}

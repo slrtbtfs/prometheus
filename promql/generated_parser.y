@@ -25,14 +25,8 @@
 %}
 
 %union {
-    node      Node
     item      Item
-    matchers  interface{}
-    matcher   interface{}
-    label     labels.Label
-    labels    interface{}
-    strings   interface{}
-    series    interface{}
+    generic   interface{}
     uint      uint64
     float     float64
 }
@@ -119,15 +113,15 @@
 %token START_SERIES_DESCRIPTION
 %token	startSymbolsEnd
 
-%type <matchers> label_matchers label_match_list
-%type <matcher> label_matcher
+%type <generic> label_matchers label_match_list
+%type <generic> label_matcher
 
 %type <item> match_op metric_identifier grouping_label maybe_label
 
-%type <labels> label_set_list label_set metric
+%type <generic> label_set_list label_set metric
 %type <label> label_set_item    
-%type <strings> grouping_labels  grouping_label_list
-%type <series> series_values series_item
+%type <generic> grouping_labels  grouping_label_list
+%type <generic> series_values series_item
 %type <uint> uint
 %type <float> series_value signed_number number
 
