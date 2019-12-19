@@ -27,8 +27,6 @@
 %union {
     item      Item
     generic   interface{}
-    uint      uint64
-    float     float64
 }
 
 
@@ -122,8 +120,8 @@
 %type <generic> label_set_item    
 %type <generic> grouping_labels  grouping_label_list
 %type <generic> series_values series_item
-%type <uint> uint
-%type <float> series_value signed_number number
+%type <generic> uint
+%type <generic> series_value signed_number number
 
 %start start
 
