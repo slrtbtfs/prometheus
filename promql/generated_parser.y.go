@@ -21,12 +21,12 @@ type yySymType struct {
 	yys      int
 	node     Node
 	item     Item
-	matchers []*labels.Matcher
-	matcher  *labels.Matcher
+	matchers interface{}
+	matcher  interface{}
 	label    labels.Label
-	labels   labels.Labels
-	strings  []string
-	series   []sequenceValue
+	labels   interface{}
+	strings  interface{}
+	series   interface{}
 	uint     uint64
 	float    float64
 }
@@ -664,7 +664,7 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:139
 		{
-			yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = yyDollar[2].matchers
+			yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = yyDollar[2].matchers.([]*labels.Matcher)
 		}
 	case 2:
 		yyDollar = yyS[yypt-2 : yypt+1]
@@ -718,13 +718,13 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line promql/generated_parser.y:165
 		{
-			yyVAL.matchers = append(yyDollar[1].matchers, yyDollar[3].matcher)
+			yyVAL.matchers = append(yyDollar[1].matchers.([]*labels.Matcher), yyDollar[3].matcher.(*labels.Matcher))
 		}
 	case 13:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:167
 		{
-			yyVAL.matchers = []*labels.Matcher{yyDollar[1].matcher}
+			yyVAL.matchers = []*labels.Matcher{yyDollar[1].matcher.(*labels.Matcher)}
 		}
 	case 14:
 		yyDollar = yyS[yypt-2 : yypt+1]
@@ -784,8 +784,8 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:193
 		{
-			yyVAL.labels = append(yyDollar[2].labels, labels.Label{Name: labels.MetricName, Value: yyDollar[1].item.Val})
-			sort.Sort(yyVAL.labels)
+			yyVAL.labels = append(yyDollar[2].labels.(labels.Labels), labels.Label{Name: labels.MetricName, Value: yyDollar[1].item.Val})
+			sort.Sort(yyVAL.labels.(labels.Labels))
 		}
 	case 24:
 		yyDollar = yyS[yypt-1 : yypt+1]
@@ -815,13 +815,13 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line promql/generated_parser.y:207
 		{
-			yyVAL.labels = labels.New(yyDollar[2].labels...)
+			yyVAL.labels = labels.New(yyDollar[2].labels.([]labels.Label)...)
 		}
 	case 29:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line promql/generated_parser.y:209
 		{
-			yyVAL.labels = labels.New(yyDollar[2].labels...)
+			yyVAL.labels = labels.New(yyDollar[2].labels.([]labels.Label)...)
 		}
 	case 30:
 		yyDollar = yyS[yypt-2 : yypt+1]
@@ -839,7 +839,7 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line promql/generated_parser.y:218
 		{
-			yyVAL.labels = append(yyDollar[1].labels, yyDollar[3].label)
+			yyVAL.labels = append(yyDollar[1].labels.([]labels.Label), yyDollar[3].label)
 		}
 	case 33:
 		yyDollar = yyS[yypt-1 : yypt+1]
@@ -899,7 +899,7 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line promql/generated_parser.y:249
 		{
-			yyVAL.strings = append(yyDollar[1].strings, yyDollar[3].item.Val)
+			yyVAL.strings = append(yyDollar[1].strings.([]string), yyDollar[3].item.Val)
 		}
 	case 43:
 		yyDollar = yyS[yypt-1 : yypt+1]
@@ -933,8 +933,8 @@ yydefault:
 //line promql/generated_parser.y:298
 		{
 			yylex.(*parser).generatedParserResult = &seriesDescription{
-				labels: yyDollar[1].labels,
-				values: yyDollar[2].series,
+				labels: yyDollar[1].labels.(labels.Labels),
+				values: yyDollar[2].series.([]sequenceValue),
 			}
 		}
 	case 71:
@@ -947,13 +947,13 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line promql/generated_parser.y:310
 		{
-			yyVAL.series = append(yyDollar[1].series, yyDollar[3].series...)
+			yyVAL.series = append(yyDollar[1].series.([]sequenceValue), yyDollar[3].series.([]sequenceValue)...)
 		}
 	case 73:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:312
 		{
-			yyVAL.series = yyDollar[1].series
+			yyVAL.series = yyDollar[1].series.([]sequenceValue)
 		}
 	case 74:
 		yyDollar = yyS[yypt-1 : yypt+1]
@@ -973,7 +973,7 @@ yydefault:
 		{
 			yyVAL.series = []sequenceValue{}
 			for i := uint64(0); i < yyDollar[3].uint; i++ {
-				yyVAL.series = append(yyVAL.series, sequenceValue{omitted: true})
+				yyVAL.series = append(yyVAL.series.([]sequenceValue), sequenceValue{omitted: true})
 			}
 		}
 	case 77:
@@ -988,7 +988,7 @@ yydefault:
 		{
 			yyVAL.series = []sequenceValue{}
 			for i := uint64(0); i <= yyDollar[3].uint; i++ {
-				yyVAL.series = append(yyVAL.series, sequenceValue{value: yyDollar[1].float})
+				yyVAL.series = append(yyVAL.series.([]sequenceValue), sequenceValue{value: yyDollar[1].float})
 			}
 		}
 	case 79:
@@ -997,7 +997,7 @@ yydefault:
 		{
 			yyVAL.series = []sequenceValue{}
 			for i := uint64(0); i <= yyDollar[4].uint; i++ {
-				yyVAL.series = append(yyVAL.series, sequenceValue{value: yyDollar[1].float})
+				yyVAL.series = append(yyVAL.series.([]sequenceValue), sequenceValue{value: yyDollar[1].float})
 				yyDollar[1].float += yyDollar[2].float
 			}
 		}

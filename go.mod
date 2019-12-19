@@ -43,7 +43,7 @@ require (
 	golang.org/x/sync v0.0.0-20190423024810-112230192c58
 	golang.org/x/sys v0.0.0-20191010194322-b09406accb47
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
-	golang.org/x/tools v0.0.0-20190918214516-5a1a30219888
+	golang.org/x/tools v0.0.0-20191219041853-979b82bfef62
 	google.golang.org/api v0.8.0
 	google.golang.org/genproto v0.0.0-20190801165951-fa694d86fc64
 	google.golang.org/grpc v1.22.1
@@ -54,6 +54,12 @@ require (
 	k8s.io/apimachinery v0.0.0-20190809020650-423f5d784010
 	k8s.io/client-go v0.0.0-20190620085101-78d2af792bab
 	k8s.io/klog v0.4.0
+	modernc.org/golex v1.0.0 // indirect
+	modernc.org/goyacc v1.0.0 // indirect
+	modernc.org/parser v1.0.0 // indirect
+	modernc.org/sortutil v1.1.0 // indirect
+	modernc.org/strutil v1.1.0 // indirect
+	modernc.org/y v1.0.0 // indirect
 )
 
 replace (

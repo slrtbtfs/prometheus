@@ -27,12 +27,12 @@
 %union {
     node      Node
     item      Item
-    matchers  []*labels.Matcher
-    matcher   *labels.Matcher
+    matchers  interface{}
+    matcher   interface{}
     label     labels.Label
-    labels    labels.Labels
-    strings   []string
-    series    []sequenceValue
+    labels    interface{}
+    strings   interface{}
+    series    interface{}
     uint      uint64
     float     float64
 }
@@ -136,7 +136,7 @@
 %%
 
 start           : START_LABELS label_matchers
-                     {yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = $2}
+                     {yylex.(*parser).generatedParserResult.(*VectorSelector).LabelMatchers = $2.([]*labels.Matcher)}
                 | START_LABEL_SET label_set 
                      { yylex.(*parser).generatedParserResult = $2 }
                 | START_METRIC metric
@@ -162,9 +162,9 @@ label_matchers  :
 
 label_match_list:
                 label_match_list COMMA label_matcher
-                        { $$ = append($1, $3)}
+                        { $$ = append($1.([]*labels.Matcher), $3.(*labels.Matcher))}
                 | label_matcher
-                        { $$ = []*labels.Matcher{$1}}
+                        { $$ = []*labels.Matcher{$1.(*labels.Matcher)}}
                 | label_match_list error
                         { yylex.(*parser).unexpected("label matching", "\",\" or \"}\"") }
                 ;
@@ -190,7 +190,7 @@ match_op        :
 
 metric          :
                 metric_identifier label_set
-                        { $$ = append($2, labels.Label{Name: labels.MetricName, Value: $1.Val}); sort.Sort($$) }
+                        { $$ = append($2.(labels.Labels), labels.Label{Name: labels.MetricName, Value: $1.Val}); sort.Sort($$.(labels.Labels)) }
                 | label_set 
                         {$$ = $1}
                 | error
@@ -204,9 +204,9 @@ metric_identifier
 
 label_set       :
                 LEFT_BRACE label_set_list RIGHT_BRACE
-                        { $$ = labels.New($2...) }
+                        { $$ = labels.New($2.([]labels.Label)...) }
                 | LEFT_BRACE label_set_list COMMA RIGHT_BRACE
-                        { $$ = labels.New($2...) }
+                        { $$ = labels.New($2.([]labels.Label)...) }
                 | LEFT_BRACE RIGHT_BRACE
                         { $$ = labels.New() }
                 | /* empty */
@@ -215,7 +215,7 @@ label_set       :
 
 label_set_list  :
                 label_set_list COMMA label_set_item
-                        { $$ = append($1, $3) }
+                        { $$ = append($1.([]labels.Label), $3) }
                 | label_set_item
                         { $$ = []labels.Label{$1} }
                 | label_set_list error
@@ -246,7 +246,7 @@ grouping_labels :
 
 grouping_label_list:
                 grouping_label_list COMMA grouping_label
-                        { $$ = append($1, $3.Val) }
+                        { $$ = append($1.([]string), $3.Val) }
                 | grouping_label
                         { $$ = []string{$1.Val} }
                 | grouping_label_list error
@@ -297,8 +297,8 @@ series_description:
                 metric series_values 
                         {
                         yylex.(*parser).generatedParserResult = &seriesDescription{
-                                labels: $1,
-                                values: $2,
+                                labels: $1.(labels.Labels),
+                                values: $2.([]sequenceValue),
                         }
                         }
                 ;
@@ -307,9 +307,9 @@ series_values   :
                 /*empty*/
                         { $$ = []sequenceValue{} }
                 | series_values SPACE series_item
-                        { $$ = append($1, $3...) }
+                        { $$ = append($1.([]sequenceValue), $3.([]sequenceValue)...) }
                 | series_values SPACE
-                        { $$ = $1 }
+                        { $$ = $1.([]sequenceValue) }
                 | error
                         { yylex.(*parser).unexpected("series values", "") }
                 ;
@@ -321,7 +321,7 @@ series_item     :
                         {
                         $$ = []sequenceValue{}
                         for i:=uint64(0); i < $3; i++{
-                                $$ = append($$, sequenceValue{omitted: true})
+                                $$ = append($$.([]sequenceValue), sequenceValue{omitted: true})
                         }
                         }
                 | series_value 
@@ -330,14 +330,14 @@ series_item     :
                         {
                         $$ = []sequenceValue{}
                         for i:=uint64(0); i <= $3; i++{
-                                $$ = append($$, sequenceValue{value: $1})
+                                $$ = append($$.([]sequenceValue), sequenceValue{value: $1})
                         }
                         }
                 | series_value signed_number TIMES uint 
                         {
                         $$ = []sequenceValue{}
                         for i:=uint64(0); i <= $4; i++{
-                                $$ = append($$, sequenceValue{value: $1})
+                                $$ = append($$.([]sequenceValue), sequenceValue{value: $1})
                                 $1 += $2
                         }
                         }
