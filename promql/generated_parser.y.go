@@ -683,7 +683,7 @@ yydefault:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line promql/generated_parser.y:146
 		{
-			yylex.(*parser).generatedParserResult = &parseSeriesDescResult{}
+			yylex.(*parser).generatedParserResult = &seriesDescription{}
 		}
 	case 8:
 		yyDollar = yyS[yypt-1 : yypt+1]
@@ -927,7 +927,7 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line promql/generated_parser.y:298
 		{
-			yylex.(*parser).generatedParserResult = &parseSeriesDescResult{
+			yylex.(*parser).generatedParserResult = &seriesDescription{
 				labels: yyDollar[1].labels,
 				values: yyDollar[2].series,
 			}
