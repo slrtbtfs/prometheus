@@ -119,7 +119,7 @@
 %type <item> match_op metric_identifier grouping_label maybe_label
 
 %type <generic> label_set_list label_set metric
-%type <label> label_set_item    
+%type <generic> label_set_item    
 %type <generic> grouping_labels  grouping_label_list
 %type <generic> series_values series_item
 %type <uint> uint
@@ -209,9 +209,9 @@ label_set       :
 
 label_set_list  :
                 label_set_list COMMA label_set_item
-                        { $$ = append($1.([]labels.Label), $3) }
+                        { $$ = append($1.([]labels.Label), $3.(labels.Label)) }
                 | label_set_item
-                        { $$ = []labels.Label{$1} }
+                        { $$ = []labels.Label{$1.(labels.Label)} }
                 | label_set_list error
                         { yylex.(*parser).unexpected("label set", "\",\" or \"}\"", ) }
                 
