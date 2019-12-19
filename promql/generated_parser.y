@@ -312,25 +312,25 @@ series_item     :
                 | BLANK TIMES uint 
                         {
                         $$ = []sequenceValue{}
-                        for i:=uint64(0); i < $3; i++{
+                        for i:=uint64(0); i < $3.(uint64); i++{
                                 $$ = append($$.([]sequenceValue), sequenceValue{omitted: true})
                         }
                         }
                 | series_value 
-                        { $$ = []sequenceValue{{value: $1}}}
+                        { $$ = []sequenceValue{{value: $1.(float64)}}}
                 | series_value TIMES uint 
                         {
                         $$ = []sequenceValue{}
-                        for i:=uint64(0); i <= $3; i++{
-                                $$ = append($$.([]sequenceValue), sequenceValue{value: $1})
+                        for i:=uint64(0); i <= $3.(uint64); i++{
+                                $$ = append($$.([]sequenceValue), sequenceValue{value: $1.(float64)})
                         }
                         }
                 | series_value signed_number TIMES uint 
                         {
                         $$ = []sequenceValue{}
-                        for i:=uint64(0); i <= $4; i++{
-                                $$ = append($$.([]sequenceValue), sequenceValue{value: $1})
-                                $1 += $2
+                        for i:=uint64(0); i <= $4.(uint64); i++{
+                                $$ = append($$.([]sequenceValue), sequenceValue{value: $1.(float64)})
+                                $1 = $1.(float64) + $2.(float64)
                         }
                         }
 uint            :
@@ -348,7 +348,7 @@ signed_number   :
                 ADD number
                         { $$ = $2 }
                 | SUB number
-                        { $$ = -$2 }
+                        { $$ = -$2.(float64) }
                 ;
 
 series_value    :
