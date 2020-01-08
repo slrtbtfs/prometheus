@@ -697,9 +697,18 @@ func TestLexer(t *testing.T) {
 					input:      test.input,
 					seriesDesc: test.seriesDesc,
 				}
-				l.run()
 
-				out := l.Items
+				var out []Item
+
+				for {
+					out = append(out, Item{})
+
+					l.NextItem(&out[len(out)-1])
+
+					if out[len(out)-1].Typ == EOF {
+						break
+					}
+				}
 
 				lastItem := out[len(out)-1]
 				if test.fail {
