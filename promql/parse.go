@@ -29,8 +29,7 @@ import (
 )
 
 type parser struct {
-	lex   *Lexer
-	token Item
+	lex *Lexer
 
 	inject    ItemType
 	injecting bool
@@ -156,7 +155,7 @@ func (p *parser) unexpected(context string, expected string) {
 	var errMsg strings.Builder
 
 	errMsg.WriteString("unexpected ")
-	errMsg.WriteString(p.token.desc())
+	errMsg.WriteString(p.yyParser.lval.item.desc())
 
 	if context != "" {
 		errMsg.WriteString(" in ")
@@ -221,8 +220,6 @@ func (p *parser) Lex(lval *yySymType) int {
 		lval.item.Typ = EOF
 		p.InjectItem(0)
 	}
-
-	p.token = lval.item
 
 	return int(typ)
 }
