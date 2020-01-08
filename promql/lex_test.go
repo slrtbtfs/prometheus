@@ -700,14 +700,10 @@ func TestLexer(t *testing.T) {
 
 				var out []Item
 
-				for {
+				for l.state = lexStatements; l.state != nil; {
 					out = append(out, Item{})
 
 					l.NextItem(&out[len(out)-1])
-
-					if out[len(out)-1].Typ == EOF {
-						break
-					}
 				}
 
 				lastItem := out[len(out)-1]

@@ -347,13 +347,6 @@ func Lex(input string) *Lexer {
 	return l
 }
 
-// run runs the state machine for the lexer.
-func (l *Lexer) run() {
-	for l.state = lexStatements; l.state != nil; {
-		l.state = l.state(l)
-	}
-}
-
 // lineComment is the character that starts a line comment.
 const lineComment = "#"
 
@@ -453,7 +446,7 @@ func lexStatements(l *Lexer) stateFn {
 	case r == '{':
 		l.emit(LEFT_BRACE)
 		l.braceOpen = true
-		return lexInsideBraces(l)
+		return lexInsideBraces
 	case r == '[':
 		if l.bracketOpen {
 			return l.errorf("unexpected left bracket %q", r)
@@ -591,8 +584,10 @@ func lexEscape(l *Lexer) {
 		n, base, max = 8, 16, unicode.MaxRune
 	case eof:
 		l.errorf("escape sequence not terminated")
+		return
 	default:
 		l.errorf("unknown escape sequence %#U", ch)
+		return
 	}
 
 	var x uint32
@@ -601,8 +596,10 @@ func lexEscape(l *Lexer) {
 		if d >= base {
 			if ch == eof {
 				l.errorf("escape sequence not terminated")
+				return
 			}
 			l.errorf("illegal character %#U in escape sequence", ch)
+			return
 		}
 		x = x*base + d
 		ch = l.next()
@@ -644,9 +641,11 @@ Loop:
 		case '\\':
 			lexEscape(l)
 		case utf8.RuneError:
-			return l.errorf("invalid UTF-8 rune")
+			l.errorf("invalid UTF-8 rune")
+			return lexString
 		case eof, '\n':
-			return l.errorf("unterminated quoted string")
+			l.errorf("unterminated quoted string")
+			return lexString
 		case l.stringOpen:
 			break Loop
 		}
@@ -661,9 +660,11 @@ Loop:
 	for {
 		switch l.next() {
 		case utf8.RuneError:
-			return l.errorf("invalid UTF-8 rune")
+			l.errorf("invalid UTF-8 rune")
+			return lexRawString
 		case eof:
-			return l.errorf("unterminated raw string")
+			l.errorf("unterminated raw string")
+			return lexRawString
 		case l.stringOpen:
 			break Loop
 		}

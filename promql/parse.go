@@ -211,13 +211,16 @@ func (p *parser) Lex(lval *yySymType) int {
 		}
 	}
 
-	if p.token.Typ == ERROR {
+	if typ == ERROR {
 		p.errorf("%s", lval.item.Val)
 	}
 
 	if typ == EOF {
+		lval.item.Typ = EOF
 		p.InjectItem(0)
 	}
+
+	p.token = lval.item
 
 	return int(typ)
 }
