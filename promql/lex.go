@@ -315,9 +315,6 @@ func (l *Lexer) errorf(format string, args ...interface{}) stateFn {
 		*l.itemp = Item{ERROR, l.start, fmt.Sprintf(format, args...)}
 	}
 
-	// Make sure that lexing will not continue.
-	l.state = nil
-
 	l.scannedItem = true
 
 	return nil
@@ -563,14 +560,14 @@ func lexValueSequence(l *Lexer) stateFn {
 // package of the Go standard library to work for Prometheus-style strings.
 // None of the actual escaping/quoting logic was changed in this function - it
 // was only modified to integrate with our lexer.
-func lexEscape(l *Lexer) {
+func lexEscape(l *Lexer) stateFn {
 	var n int
 	var base, max uint32
 
 	ch := l.next()
 	switch ch {
 	case 'a', 'b', 'f', 'n', 'r', 't', 'v', '\\', l.stringOpen:
-		return
+		return lexString
 	case '0', '1', '2', '3', '4', '5', '6', '7':
 		n, base, max = 3, 8, 255
 	case 'x':
@@ -584,10 +581,10 @@ func lexEscape(l *Lexer) {
 		n, base, max = 8, 16, unicode.MaxRune
 	case eof:
 		l.errorf("escape sequence not terminated")
-		return
+		return lexString
 	default:
 		l.errorf("unknown escape sequence %#U", ch)
-		return
+		return lexString
 	}
 
 	var x uint32
@@ -596,10 +593,10 @@ func lexEscape(l *Lexer) {
 		if d >= base {
 			if ch == eof {
 				l.errorf("escape sequence not terminated")
-				return
+				return lexString
 			}
 			l.errorf("illegal character %#U in escape sequence", ch)
-			return
+			return lexString
 		}
 		x = x*base + d
 		ch = l.next()
@@ -609,6 +606,7 @@ func lexEscape(l *Lexer) {
 	if x > max || 0xD800 <= x && x < 0xE000 {
 		l.errorf("escape sequence is an invalid Unicode code point")
 	}
+	return lexString
 }
 
 // digitVal returns the digit value of a rune or 16 in case the rune does not
@@ -639,13 +637,12 @@ Loop:
 	for {
 		switch l.next() {
 		case '\\':
-			lexEscape(l)
+			return lexEscape
 		case utf8.RuneError:
 			l.errorf("invalid UTF-8 rune")
 			return lexString
 		case eof, '\n':
-			l.errorf("unterminated quoted string")
-			return lexString
+			return l.errorf("unterminated quoted string")
 		case l.stringOpen:
 			break Loop
 		}

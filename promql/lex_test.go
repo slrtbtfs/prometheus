@@ -708,7 +708,14 @@ func TestLexer(t *testing.T) {
 
 				lastItem := out[len(out)-1]
 				if test.fail {
-					if lastItem.Typ != ERROR {
+					hasError := false
+					for _, item := range out {
+						if item.Typ == ERROR {
+							hasError = true
+						}
+
+					}
+					if !hasError {
 						t.Logf("%d: input %q", i, test.input)
 						t.Fatalf("expected lexing error but did not fail")
 					}
