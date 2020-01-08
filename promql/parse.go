@@ -35,6 +35,8 @@ type parser struct {
 	inject    ItemType
 	injecting bool
 
+	yyParser yyParserImpl
+
 	generatedParserResult interface{}
 }
 
@@ -523,7 +525,7 @@ func parseDuration(ds string) (time.Duration, error) {
 func (p *parser) parseGenerated(startSymbol ItemType) interface{} {
 	p.InjectItem(startSymbol)
 
-	yyParse(p)
+	p.yyParser.Parse(p)
 
 	return p.generatedParserResult
 
