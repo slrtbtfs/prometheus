@@ -223,7 +223,7 @@ type Lexer struct {
 	start   Pos     // Start position of this Item.
 	width   Pos     // Width of last rune read from input.
 	lastPos Pos     // Position of most recent Item returned by NextItem.
-	Items   []Item  // Slice buffer of scanned Items.
+	itemp   *Item   // Address where the next scanned item should be placed.
 
 	parenDepth  int  // Nesting depth of ( ) exprs.
 	braceOpen   bool // Whether a { is opened.
@@ -262,7 +262,7 @@ func (l *Lexer) backup() {
 
 // emit passes an Item back to the client.
 func (l *Lexer) emit(t ItemType) {
-	l.Items = append(l.Items, Item{t, l.start, l.input[l.start:l.pos]})
+	*l.itemp = Item{t, l.start, l.input[l.start:l.pos]}
 	l.start = l.pos
 }
 
@@ -308,23 +308,26 @@ func (l *Lexer) linePosition() int {
 // errorf returns an error token and terminates the scan by passing
 // back a nil pointer that will be the next state, terminating l.NextItem.
 func (l *Lexer) errorf(format string, args ...interface{}) stateFn {
-	l.Items = append(l.Items, Item{ERROR, l.start, fmt.Sprintf(format, args...)})
+	// Make sure that the lexing has not already ended before reporting an error.
+	if l.state != nil {
+		*l.itemp = Item{ERROR, l.start, fmt.Sprintf(format, args...)}
+	}
+
+	// Make sure that lexing will not continue.
+	l.state = nil
+
 	return nil
 }
 
-// NextItem returns the next Item from the input.
-func (l *Lexer) NextItem() Item {
-	for len(l.Items) == 0 {
-		if l.state != nil {
-			l.state = l.state(l)
-		} else {
-			l.emit(EOF)
-		}
+// NextItem writes the next item to the provided address
+func (l *Lexer) NextItem(itemp *Item) {
+	l.itemp = itemp
+	if l.state != nil {
+		l.state = l.state(l)
+	} else {
+		l.emit(EOF)
 	}
-	Item := l.Items[0]
-	l.Items = l.Items[1:]
-	l.lastPos = Item.Pos
-	return Item
+	l.lastPos = l.itemp.Pos
 }
 
 // lex creates a new scanner for the input string.

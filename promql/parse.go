@@ -32,7 +32,7 @@ type parser struct {
 	lex   *Lexer
 	token Item
 
-	inject    Item
+	inject    ItemType
 	injecting bool
 
 	generatedParserResult interface{}
@@ -129,21 +129,6 @@ func (p *parser) typecheck(node Node) (err error) {
 	return nil
 }
 
-// next returns the next token.
-func (p *parser) next() Item {
-	t := p.lex.NextItem()
-	// Skip comments.
-	for t.Typ == COMMENT {
-		t = p.lex.NextItem()
-	}
-	p.token = t
-
-	if p.token.Typ == ERROR {
-		p.errorf("%s", p.token.Val)
-	}
-	return p.token
-}
-
 // errorf formats the error and terminates processing.
 func (p *parser) errorf(format string, args ...interface{}) {
 	p.error(errors.Errorf(format, args...))
@@ -211,14 +196,24 @@ func (p *parser) recover(errp *error) {
 //
 // For more information, see https://godoc.org/golang.org/x/tools/cmd/goyacc.
 func (p *parser) Lex(lval *yySymType) int {
+	var typ ItemType
+
 	if p.injecting {
-		lval.item = p.inject
 		p.injecting = false
+		return int(p.inject)
 	} else {
-		lval.item = p.next()
+		// Skip comments.
+		// This emulates a do-while loop.
+		typ = COMMENT
+		for typ == COMMENT {
+			p.lex.NextItem(&lval.item)
+			typ = lval.item.Typ
+		}
 	}
 
-	typ := lval.item.Typ
+	if p.token.Typ == ERROR {
+		p.errorf("%s", lval.item.Val)
+	}
 
 	if typ == EOF {
 		p.InjectItem(0)
@@ -251,7 +246,7 @@ func (p *parser) InjectItem(typ ItemType) {
 		panic("cannot inject symbol that isn't start symbol")
 	}
 
-	p.inject = Item{Typ: typ}
+	p.inject = typ
 	p.injecting = true
 }
 func (p *parser) newBinaryExpression(lhs Node, op Item, modifiers Node, rhs Node) *BinaryExpr {
