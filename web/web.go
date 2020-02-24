@@ -68,6 +68,8 @@ import (
 	api_v1 "github.com/prometheus/prometheus/web/api/v1"
 	api_v2 "github.com/prometheus/prometheus/web/api/v2"
 	"github.com/prometheus/prometheus/web/ui"
+
+	langserver "github.com/prometheus-community/promql-langserver/rest"
 )
 
 // Paths that are handled by the React / Reach router that should all be served the main React app's index.html.
@@ -400,6 +402,15 @@ func New(logger log.Logger, o *Options) *Handler {
 
 	if o.UserAssetsPath != "" {
 		router.Get("/user/*filepath", route.FileServe(o.UserAssetsPath))
+	}
+
+	langserver, err := langserver.CreateHandler(context.Background(), fmt.Sprint("http://", o.ListenAddress))
+
+	langserver = http.StripPrefix("/langserver", langserver)
+	if err == nil {
+		router.Get("/langserver/*subpath", langserver.ServeHTTP)
+	} else {
+		fmt.Println("Failed to create langserver", err)
 	}
 
 	if o.EnableLifecycle {
