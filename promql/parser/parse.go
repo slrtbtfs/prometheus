@@ -304,7 +304,15 @@ func (p *parser) Lex(lval *yySymType) int {
 	switch typ {
 
 	case ERROR:
-		p.addParseErrf(lval.item.PositionRange(), "%s", lval.item.Val)
+		// For the lexer errors we consider
+		// the position range from where the error occured until
+		// the end of the query as wrong.
+
+		errRange := PositionRange{
+			Start: lval.item.Pos,
+			End:   Pos(len(p.lex.input)),
+		}
+		p.addParseErrf(errRange, "%s", lval.item.Val)
 		p.InjectItem(0)
 	case EOF:
 		lval.item.Typ = EOF

@@ -374,9 +374,19 @@ func mergeRanges(first Node, last Node) PositionRange {
 // Item implements the Node interface.
 // This makes it possible to call mergeRanges on them.
 func (i *Item) PositionRange() PositionRange {
+	var end Pos
+
+	if i.Typ == ERROR {
+		// We can't really say where the error ends
+		// and return an undefined position.
+		end = -1
+	} else {
+		end = i.Pos + Pos(len(i.Val))
+	}
+
 	return PositionRange{
 		Start: i.Pos,
-		End:   i.Pos + Pos(len(i.Val)),
+		End:   end,
 	}
 }
 
