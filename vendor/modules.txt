@@ -196,6 +196,8 @@ github.com/gophercloud/gophercloud/openstack/identity/v2/tokens
 github.com/gophercloud/gophercloud/openstack/identity/v3/tokens
 github.com/gophercloud/gophercloud/openstack/utils
 github.com/gophercloud/gophercloud/pagination
+# github.com/gorilla/websocket v1.4.1
+github.com/gorilla/websocket
 # github.com/grpc-ecosystem/grpc-gateway v1.13.0
 github.com/grpc-ecosystem/grpc-gateway/codegenerator
 github.com/grpc-ecosystem/grpc-gateway/internal
@@ -270,6 +272,20 @@ github.com/opentracing/opentracing-go/ext
 github.com/opentracing/opentracing-go/log
 # github.com/pkg/errors v0.9.1
 github.com/pkg/errors
+# github.com/prometheus-community/promql-langserver v0.4.4-0.20200225152930-f2420fe16303
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/jsonrpc2
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/lsp/protocol
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/span
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/telemetry
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/telemetry/export
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/telemetry/log
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/telemetry/tag
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/telemetry/trace
+github.com/prometheus-community/promql-langserver/internal/vendored/go-tools/xcontext
+github.com/prometheus-community/promql-langserver/langserver
+github.com/prometheus-community/promql-langserver/langserver/cache
+github.com/prometheus-community/promql-langserver/langserver/documentation/functions_statik
+github.com/prometheus-community/promql-langserver/rest
 # github.com/prometheus/alertmanager v0.20.0
 github.com/prometheus/alertmanager/api/v2/models
 # github.com/prometheus/client_golang v1.4.1
@@ -296,6 +312,8 @@ github.com/prometheus/common/version
 github.com/prometheus/procfs
 github.com/prometheus/procfs/internal/fs
 github.com/prometheus/procfs/internal/util
+# github.com/rakyll/statik v0.1.7-0.20191104211043-6b2f3ee522b6
+github.com/rakyll/statik/fs
 # github.com/samuel/go-zookeeper v0.0.0-20190923202752-2cc03de413da
 github.com/samuel/go-zookeeper/zk
 # github.com/shurcooL/httpfs v0.0.0-20190707220628-8d4bc4ba7749

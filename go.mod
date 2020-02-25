@@ -29,7 +29,7 @@ require (
 	github.com/opentracing-contrib/go-stdlib v0.0.0-20190519235532-cf7a6c988dc9
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus-community/promql-langserver v0.4.4-0.20200225152930-f2420fe16303 // indirect
+	github.com/prometheus-community/promql-langserver v0.4.4-0.20200225152930-f2420fe16303
 	github.com/prometheus/alertmanager v0.20.0
 	github.com/prometheus/client_golang v1.4.1
 	github.com/prometheus/client_model v0.2.0
