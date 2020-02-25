@@ -190,6 +190,7 @@ type API struct {
 	CORSOrigin                *regexp.Regexp
 	buildInfo                 *PrometheusVersion
 	runtimeInfo               func() (RuntimeInfo, error)
+	langserver                http.Handler
 }
 
 func init() {
@@ -217,6 +218,7 @@ func NewAPI(
 	CORSOrigin *regexp.Regexp,
 	runtimeInfo func() (RuntimeInfo, error),
 	buildInfo *PrometheusVersion,
+	langserver http.Handler,
 ) *API {
 	return &API{
 		QueryEngine:           qe,
@@ -239,6 +241,7 @@ func NewAPI(
 		CORSOrigin:                CORSOrigin,
 		runtimeInfo:               runtimeInfo,
 		buildInfo:                 buildInfo,
+		langserver:                langserver,
 	}
 }
 
@@ -294,6 +297,8 @@ func (api *API) Register(r *route.Router) {
 
 	r.Get("/alerts", wrap(api.alerts))
 	r.Get("/rules", wrap(api.rules))
+
+	r.Get("/langserver/:action", api.langserver.ServeHTTP)
 
 	// Admin APIs
 	r.Post("/admin/tsdb/delete_series", wrap(api.deleteSeries))

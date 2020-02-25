@@ -263,6 +263,12 @@ func New(logger log.Logger, o *Options) *Handler {
 		cwd = "<error retrieving current working directory>"
 	}
 
+	langserver, err := langserver.CreateHandler(context.Background(), fmt.Sprint("http://", o.ListenAddress))
+	if err != nil {
+		logger.Log("failed to initialize langserver API", err)
+		langserver = http.NotFoundHandler()
+	}
+
 	h := &Handler{
 		logger: logger,
 
@@ -317,6 +323,7 @@ func New(logger log.Logger, o *Options) *Handler {
 		h.options.CORSOrigin,
 		h.runtimeInfo,
 		h.versionInfo,
+		langserver,
 	)
 
 	if o.RoutePrefix != "/" {
@@ -403,8 +410,6 @@ func New(logger log.Logger, o *Options) *Handler {
 	if o.UserAssetsPath != "" {
 		router.Get("/user/*filepath", route.FileServe(o.UserAssetsPath))
 	}
-
-	langserver, err := langserver.CreateHandler(context.Background(), fmt.Sprint("http://", o.ListenAddress))
 
 	langserver = http.StripPrefix("/langserver", langserver)
 	if err == nil {
