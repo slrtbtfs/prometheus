@@ -6,8 +6,6 @@ require (
 	github.com/Azure/azure-sdk-for-go v39.1.0+incompatible
 	github.com/Azure/go-autorest/autorest v0.9.5
 	github.com/Azure/go-autorest/autorest/adal v0.8.2
-	github.com/Azure/go-autorest/autorest/to v0.3.0 // indirect
-	github.com/Azure/go-autorest/autorest/validation v0.2.0 // indirect
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d
 	github.com/aws/aws-sdk-go v1.29.4
 	github.com/cespare/xxhash v1.1.0
@@ -23,7 +21,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.13.0
 	github.com/hashicorp/consul/api v1.4.0
 	github.com/influxdata/influxdb v1.7.7
-	github.com/jpillora/backoff v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.9
 	github.com/miekg/dns v1.1.27
 	github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f
@@ -32,6 +29,7 @@ require (
 	github.com/opentracing-contrib/go-stdlib v0.0.0-20190519235532-cf7a6c988dc9
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/pkg/errors v0.9.1
+	github.com/prometheus-community/promql-langserver v0.4.4-0.20200225152930-f2420fe16303 // indirect
 	github.com/prometheus/alertmanager v0.20.0
 	github.com/prometheus/client_golang v1.4.1
 	github.com/prometheus/client_model v0.2.0
